@@ -1,0 +1,75 @@
+/* PORTFOLIO/resources/css/app.css */
+
+/* IMPORTANT: @theme directive MUST come BEFORE @import "tailwindcss";
+   and BEFORE any other @ directives or CSS rules.
+*/
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Class untuk Great Vibes */
+.font-great-vibes {
+  font-family: 'Great Vibes', cursive;
+}
+
+/* Class untuk Poppins */
+.font-poppins {
+  font-family: 'Poppins', sans-serif;
+}
+
+@theme {
+  /* Define your custom theme variables as CSS custom properties */
+  --font-family-sans: "Lato", sans-serif;
+
+  --color-page-background: #F0F0E8;
+  --color-button-bg: #B9D19E;
+  --color-button-hover-bg: #A9C18E;
+  --color-text-dark: #333333;
+  --color-text-light: #666666;
+
+  /* Hanya definisikan @keyframes di dalam @theme */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Hapus @animation fade-in-up dari sini! Tailwind akan membuatnya secara otomatis. */
+}
+@import "tailwindcss";
+
+@theme inline {
+  --animate-aurora: aurora 60s linear infinite;
+  @keyframes aurora {
+    from {
+      background-position:
+        50% 50%,
+        50% 50%;
+    }
+    to {
+      background-position:
+        350% 50%,
+        350% 50%;
+    }
+  }
+}
+
+
+
+
+@import "tailwindcss";
+
+/* Custom animation delays (these are standard CSS properties, not Tailwind-specific in v4) */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+/* Tambahkan lebih banyak sesuai kebutuhan Anda */
+
+/* Optional: If Tailwind v4's automatic content detection isn't finding your classes,
+   Anda dapat mengomentari dan melengkapi direktif @config untuk secara eksplisit memberi tahu
+   di mana harus memindai nama kelas. Untuk sebagian besar pengaturan React/Laravel, ini tidak diperlukan.
+*/
