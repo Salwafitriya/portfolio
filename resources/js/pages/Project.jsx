@@ -1,97 +1,132 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import CardProject from '../components/CardProject';
+import projects from '../data/projectsData';
 
 function Project() {
-    const projects = [
-        {
-            id: 1,
-            imageUrl: '/assets/bg-card-sigasi.png',
-            tag: 'Web Development',
-            title: 'Sistem Informasi Geospasial Anak Sehat Indonesia (SIGASI)',
-            description: 'Stunting website prevention using Geographic Information System (GIS)',
-            links: {
-                demo: 'https://sigasi.web.id/',
-                // github: 'https://github.com/username/sigasi-project',
-                // youtube: 'https://youtube.com/watch?v=example'
-            }
-        },
-        {
-            id: 2,
-            imageUrl: '/assets/KIABookCover.png',
-            tag: 'Mobile App',
-            title: 'KIABook Application',
-            description: 'Built a full-stack multiplatform application for Integrated Health Post (Posyandu) using Flutter and Firebase.',
-            links: {
-                // demo: 'https://example-ecommerce.com',
-                github: 'https://github.com/Salwafitriya/KIABOOK',
-                youtube: 'htthttps://youtu.be/plbw_RV6gUw?si=43a6diz8Srd_15c8ps://youtube.com/watch?v=example2'
-            }
-        },
-            {
-            id: 3,
-            imageUrl: 'assets/Fitst Page.png',
-            tag: 'UI/UX Design',
-            title: 'Mingle',
-            description: 'Built a UI/UX design for project management mobile application.',
-            links: {
-                // demo: 'https://example-ecommerce.com',
-                figma: 'https://www.figma.com/proto/guw1om20Er70dpzzFiLhPO/Mingle?node-id=770-1523&p=f&t=2ALvcStv3QlKP0iy-1&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=738%3A877&show-proto-sidebar=1',
-                // youtube: 'htthttps://youtu.be/plbw_RV6gUw?si=43a6diz8Srd_15c8ps://youtube.com/watch?v=example2'
-            }  
-        },
-                {
-            id: 4,
-            imageUrl: '/assets/Sirata.png',
-            tag: 'Web Development',
-            title: 'Sistem Informasi Surat Menyurat Terpadu (SIRATA)',
-            description: 'Website untuk permohonan surat menyurat dan manajemen data surat lingkup program studi D3 Teknik Informatika dan D4 Teknologi Rekayasa Komputer.',
-            links: {
-                // demo: 'https://example-ecommerce.com',
-                github: 'https://github.com/denyryn/sirata',
-                // youtube: 'htthttps://youtu.be/plbw_RV6gUw?si=43a6diz8Srd_15c8ps://youtube.com/watch?v=example2'
-            }
-        },
-                {
-            id: 5,
-            imageUrl: '/assets/Web_Nirmala.png',
-            tag: 'Mobile App',
-            title: 'Website Pencatatan Posyandu',
-            description: 'Developed a web-based information system designed to record and monitor the growth and development of toddlers and pregnant women at community health posts (Posyandu). The system enables health workers to input, manage, and track data on child growth metrics and maternal health records efficiently..',
-            links: {
-                // demo: 'https://example-ecommerce.com',
-                github: 'https://github.com/Salwafitriya/Posyandu_SimpleWeb.git',
-                // youtube: 'htthttps://youtu.be/plbw_RV6gUw?si=43a6diz8Srd_15c8ps://youtube.com/watch?v=example2'
-            }
-        },
-                {
-            id: 6,
-            imageUrl: '/assets/Desaged.jpg',
-            tag: 'UI/UX Design',
-            title: 'DESAGED Mobile App',
-            description: 'Application as a Digital Platform for Tourism Villages with a Smart Tourism Concept Based on AR and AI.',
-            links: {
-                // demo: 'https://example-ecommerce.com',
-                github: 'https://github.com/Salwafitriya/KIABOOK',
-                youtube: 'htthttps://youtu.be/plbw_RV6gUw?si=43a6diz8Srd_15c8ps://youtube.com/watch?v=example2'
-            }
-        },
-        // Add other projects with the same structure
-    ];
-
     return (
-        <section id="projects" className="py-16 bg-gradient-to-b from-[#f2f2f2]/4 via-[#F4F2DD] to-[#f2f2f2]/4">
-            <h2 className="text-4xl font-bold text-center mb-12 text-[#97B9B5]">My Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-5 max-w-7xl mx-auto">
-                {projects.map((project) => (
-                    <CardProject
-                        key={project.id}
-                        imageUrl={project.imageUrl}
-                        tag={project.tag}
-                        title={project.title}
-                        description={project.description}
-                        links={project.links}
-                    />
-                ))}
+        <section
+            id="projects"
+            className="relative py-24 md:py-32 overflow-hidden bg-[#f5f1e8]"
+        >
+
+            {/* Subtle paper texture / atmosphere */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-20 left-10 w-72 h-72 bg-[#e8d9b5]/20 rounded-full blur-3xl" />
+                <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#d8c6a0]/15 rounded-full blur-3xl" />
+            </div>
+
+            <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
+
+                {/* ================= HEADER ================= */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-12"
+                >
+
+                    {/* macOS breadcrumb */}
+                    <div className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/70 border border-[#ddd4c4] shadow-sm">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
+
+                        <span className="ml-2 text-xs font-mono text-[#8b8172]">
+                            Macintosh HD / Projects
+                        </span>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+
+                        <div>
+                            <p className="font-serif italic text-[#a38b5b] text-sm mb-2">
+                                a little collection of my work ✦
+                            </p>
+
+                            <h2 className="font-serif text-5xl md:text-6xl text-[#29251f] leading-none">
+                                Projects
+                            </h2>
+
+                            <p className="mt-4 max-w-xl font-serif text-[#756d62] leading-relaxed">
+                                Things I've built, explored, and learned along the way.
+                                Each one holds a little piece of the journey.
+                            </p>
+                        </div>
+                    </div>
+                </motion.div>
+
+
+                {/* ================= PROJECT WINDOW ================= */}
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6, delay: 0.1 }}
+                    className="
+                        bg-[#faf9f6]/90
+                        backdrop-blur-xl
+                        border border-[#d9d3c8]
+                        rounded-2xl
+                        shadow-[0_20px_60px_rgba(70,60,45,0.12)]
+                        overflow-hidden
+                    "
+                >
+
+                    {/* macOS window header */}
+                    <div className="
+                        flex items-center justify-between
+                        px-5 py-3
+                        bg-[#eeece8]/90
+                        border-b border-[#d8d3ca]
+                    ">
+
+                        <div className="flex items-center gap-2">
+                            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
+                            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
+                            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
+                        </div>
+
+                        <span className="absolute left-1/2 -translate-x-1/2 text-xs font-medium text-[#817b72]">
+                            Projects
+                        </span>
+
+                        <div className="text-xs text-[#a29b91] font-mono">
+                            {projects.length} items
+                        </div>
+                    </div>
+
+
+                    {/* Project list */}
+                    <div className="p-5 sm:p-7 md:p-10 flex flex-col gap-7">
+
+                        {projects.map((project, index) => (
+                            <CardProject
+                                key={project.id}
+                                project={project}
+                                index={index}
+                            />
+                        ))}
+
+                    </div>
+
+                </motion.div>
+
+
+                {/* Bottom diary note */}
+                <motion.div
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-10 text-center"
+                >
+                    <p className="font-serif italic text-sm text-[#8d8375]">
+                        More stories are still being written...
+                    </p>
+                </motion.div>
+
             </div>
         </section>
     );

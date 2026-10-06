@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Salwa's Portfolio</title>
+    <link rel="icon" type="image/png" href="{{ asset('icon4.png') }}">
     @viteReactRefresh
     @vite(['resources/js/app.jsx'])
     <link rel="preconnect" href="https://fonts.googleapis.com">

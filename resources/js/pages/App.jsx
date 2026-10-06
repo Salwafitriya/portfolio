@@ -1,36 +1,42 @@
-// PORTFOLIO/resources/js/components/App.jsx
 import React from 'react';
-import Navbar from './Navbar';
+import { Routes, Route } from 'react-router-dom';
 import HeroSection from './Hero';
 import About from './About';
-import Skills from './skills';
 import Project from './Project';
-// import Organization from './Organization';
 import Certificate from './Certificate';
 import Contact from './Contact';
+import ProjectDetail from './ProjectDetail';
 
-import { AuroraBackground } from '../components/AuroraBackground'; // pastikan path-nya sesuai
+/* ─── Main portfolio page (all sections) ─── */
+function PortfolioPage() {
+  return (
+    <div
+      className="bg-[#fafafa] font-sans antialiased text-slate-900 selection:bg-indigo-500 selection:text-white"
+      style={{
+        height: '100vh', // Wajib fix 100vh agar menjadi area scroll tersendiri
+        overflowY: 'scroll', // Mengaktifkan scroll di dalam div ini
+        scrollSnapType: 'y mandatory', // Memaksa efek snap vertikal
+        scrollBehavior: 'smooth', // Efek transisi mulus saat klik link/navbar
+      }}
+    >
+      <HeroSection />
+      <About />
+      <Project />
+      <Certificate />
+      <Contact />
+    </div>
+  );
+}
 
+/* ─── Router root ─── */
 function App() {
   return (
-    <>
-      {/* Aurora Background global */}
-      <div className="fixed inset-0 -z-10">
-        <AuroraBackground showRadialGradient />
-      </div>
-
-      {/* Konten halaman */}
-      <div className="relative font-sans antialiased">
-        <Navbar />
-        <HeroSection />
-        <About />
-        <Skills />
-        <Project />
-        <Certificate />
-        {/* <Organization /> */}
-        <Contact/>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<PortfolioPage />} />
+      <Route path="/projects/:slug" element={<ProjectDetail />} />
+      {/* Catch-all — redirect unknown paths back to home */}
+      <Route path="*" element={<PortfolioPage />} />
+    </Routes>
   );
 }
 
