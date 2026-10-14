@@ -4,8 +4,8 @@ import { motion, useDragControls } from "framer-motion"; import RunningLogos fro
 
 /* ─── Ikon SVG untuk Folder & Explore ─── */
 const FolderIcon = () => (
-  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#72b8f8" strokeWidth="1" style={{ filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.3))' }}>
-    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="#90caf9"></path>
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#FFE34F" strokeWidth="1" style={{ filter: 'drop-shadow(0px 3px 6px rgba(0,0,0,0.4))' }}>
+    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" fill="#FFE34F" fillOpacity="0.85"></path>
   </svg>
 );
 
@@ -62,18 +62,18 @@ const About = () => {
       <div className="relative z-10 flex-grow flex flex-col justify-between p-6 sm:p-10 w-full max-w-[1400px] mx-auto">
 
         {/* Area Atas - Kumpulan Folder / Thumbnail di sebelah kiri */}
-        <div className="flex flex-col gap-6 w-[200px]">
+        <div className="flex flex-col gap-6 w-[220px]">
 
-          {/* Baris 1 */}
+          {/* Baris 1: Certification Dump & ACN */}
           <div className="flex gap-4 items-end">
-            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
+            <a href="#certification" className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
               <FolderIcon />
               <span className="text-white text-xs font-semibold drop-shadow-md text-center leading-tight">
                 certification<br />dump
               </span>
-            </div>
+            </a>
 
-            <div className="flex flex-col items-center gap-1 cursor-pointer">
+            <a href="#internship" className="flex flex-col items-center gap-1 cursor-pointer">
               <div className="relative w-[50px] h-[35px]">
                 <motion.div
                   whileHover={{
@@ -93,14 +93,14 @@ const About = () => {
               </div>
 
               <span className="text-white text-xs font-semibold drop-shadow-md">
-                ACN.jpg
+                Accenture.jpg
               </span>
-            </div>
+            </a>
           </div>
 
-          {/* Baris 2 */}
+          {/* Baris 2: IISMA & Explore */}
           <div className="flex gap-4 items-end">
-            <div className="flex flex-col items-center gap-1 cursor-pointer ml-4">
+            <a href="#activities" className="flex flex-col items-center gap-1 cursor-pointer ml-4">
               <div className="relative w-[50px] h-[35px]">
                 <motion.div
                   whileHover={{
@@ -122,13 +122,8 @@ const About = () => {
               <span className="text-white text-xs font-semibold drop-shadow-md">
                 IISMA.jpg
               </span>
-            </div>
+            </a>
 
-            {/* Tombol EXPLORE
-            <a href="#projects" className="flex flex-col items-center gap-1 cursor-pointer hover:scale-110 transition-transform ml-2">
-              <InternetExplorerIcon />
-              <span className="text-white text-xs font-semibold drop-shadow-md">Explore My Works</span>
-            </a> */}
             {/* Tombol EXPLORE */}
             <a
               href="#projects"
@@ -145,15 +140,15 @@ const About = () => {
             </a>
           </div>
 
-          {/* Baris 3 */}
-          <div className="flex gap-4 items-end mt-4">
-            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
+          {/* Baris 3: Internship dump & NGI */}
+          <div className="flex gap-4 items-end mt-2">
+            <a href="#internship" className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
               <FolderIcon />
               <span className="text-white text-xs font-semibold drop-shadow-md text-center leading-tight">
-                competition<br />dump
+                internship<br />dump
               </span>
-            </div>
-            <div className="flex flex-col items-center gap-1 cursor-pointer">
+            </a>
+            <a href="#internship" className="flex flex-col items-center gap-1 cursor-pointer">
               <div className="relative w-[50px] h-[35px]">
                 <motion.div
                   whileHover={{
@@ -175,12 +170,12 @@ const About = () => {
               <span className="text-white text-xs font-semibold drop-shadow-md">
                 NGI.jpg
               </span>
-            </div>
+            </a>
           </div>
 
-          {/* Baris 4 */}
+          {/* Baris 4: GDSC & Activity dump & SXC */}
           <div className="flex gap-4 items-end">
-            <div className="flex flex-col items-center gap-1 cursor-pointer">
+            <a href="#activities" className="flex flex-col items-center gap-1 cursor-pointer">
               <div className="relative w-[60px] h-[40px]">
                 <motion.div
                   whileHover={{
@@ -202,14 +197,14 @@ const About = () => {
               <span className="text-white text-xs font-semibold drop-shadow-md">
                 GDSC.jpg
               </span>
-            </div>
-            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
+            </a>
+            <a href="#activities" className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition-transform">
               <FolderIcon />
               <span className="text-white text-xs font-semibold drop-shadow-md text-center leading-tight">
-                activity dump
+                activity<br />dump
               </span>
-            </div>
-            <div className="flex flex-col items-center gap-1 cursor-pointer mt-[-20px]">
+            </a>
+            <a href="#activities" className="flex flex-col items-center gap-1 cursor-pointer mt-[-20px]">
               <div className="relative w-[50px] h-[35px]">
                 <motion.div
                   whileHover={{
@@ -231,7 +226,7 @@ const About = () => {
               <span className="text-white text-xs font-semibold drop-shadow-md">
                 SXCs.jpg
               </span>
-            </div>
+            </a>
           </div>
 
         </div>
@@ -245,22 +240,19 @@ const About = () => {
           dragConstraints={{ left: -300, right: 50, top: 0, bottom: 300 }}
           className="absolute top-[8%] right-[2%] z-30 cursor-grab active:cursor-grabbing"
         >
-          <div className="relative bg-[#fffdf5] border border-[#eadfca] rounded-lg shadow-2xl w-[320px] md:w-[420px] overflow-hidden rotate-[1deg]">
+          <div className="relative bg-[#F5F1E8] border border-[#E8E2D5] rounded-2xl shadow-2xl w-[320px] md:w-[420px] overflow-hidden rotate-[1deg]">
 
             {/* Diary Header */}
-            <div className="flex items-center justify-between px-5 py-3 border-b border-[#eadfca]">
+            <div className="flex items-center justify-between px-6 py-3.5 border-b border-[#E8E2D5] bg-[#FFFFFF]/70 backdrop-blur-sm">
               <div>
-                <p className="text-[10px] uppercase tracking-[0.2em] text-[#a8997d] font-semibold">
+                <p className="font-mono-tag text-[10px] uppercase tracking-[0.2em] text-[#070D20]/60 font-bold">
                   To whoever is reading,
                 </p>
-                <p className="text-[10px] text-[#b5a890] mt-0.5">
+                <p className="font-mono-tag text-[10px] text-[#070D20]/40 mt-0.5">
                   2026 · Semarang
                 </p>
               </div>
-
-              <span className="text-lg text-[#d8a85c] rotate-[-8deg]">
-                ✦
-              </span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFE34F] border border-[#070D20]/20" />
             </div>
 
             {/* Diary Content */}
@@ -268,7 +260,7 @@ const About = () => {
 
               {/* Greeting */}
               <div className="mb-5">
-                <h2 className="font-serif text-2xl md:text-3xl text-[#29251f] leading-tight">
+                <h2 className="font-editorial text-2xl md:text-3xl text-[#070D20] leading-tight">
                   Hi, <ReactTyped
                     strings={[
                       "welcome!",
@@ -281,57 +273,57 @@ const About = () => {
                       "ようこそ!",
                       "환영합니다!",
                     ]}
-                    className="italic" style={{ color: "#cc3a74ff" }}
+                    className="italic text-[#070D20]"
                     typeSpeed={65}
                     backSpeed={35}
                     backDelay={1800}
                     loop
                     showCursor
-                    cursorChar="♡"
+                    cursorChar="✦"
                   />
-                  <span className="text-[#d89b3d]"> </span>
                 </h2>
               </div>
 
               {/* Introduction */}
               <div className="space-y-4">
 
-                <p className="font-serif text-sm md:text-base text-[#514a40] leading-relaxed">
-                  I'm <strong className="font-semibold text-[#29251f]">Salwa</strong>,
-                  a curious mind who enjoys turning ideas into something real.
+                <p className="font-editorial text-sm md:text-base text-[#141B2D]/85 leading-relaxed">
+                  I'm <strong className="font-bold text-[#070D20]">Salwa</strong>,
+                  an Applied Bachelor graduate in Computer Engineering Technology from Politeknik Negeri Semarang (Awarded Best Graduate, Cum Laude, GPA 3.96/4.0).
                 </p>
 
-                <p className="font-serif text-sm md:text-base text-[#514a40] leading-relaxed">
+                <p className="font-editorial text-sm md:text-base text-[#141B2D]/85 leading-relaxed">
                   I uncover stories in
-                  <span className="relative inline-block mx-1 px-1">
-                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#f6df75]/70 -rotate-1"></span>
-                    <strong className="relative text-[#29251f]">data</strong>
+                  <span className="relative inline-block mx-1 px-1.5">
+                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#FFE34F]/80 -rotate-1 rounded-sm"></span>
+                    <strong className="relative text-[#070D20]">data</strong>
                   </span>
-                  , explore possibilities through
-                  <span className="relative inline-block mx-1 px-1">
-                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#b9e4b0]/70 rotate-1"></span>
-                    <strong className="relative text-[#29251f]">technology</strong>
+                  , engineer solutions in
+                  <span className="relative inline-block mx-1 px-1.5">
+                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#BFE8EC]/80 rotate-1 rounded-sm"></span>
+                    <strong className="relative text-[#070D20]">SAP S/4HANA &amp; tech</strong>
                   </span>
-                  , and build solutions that make sense for the
-                  <span className="relative inline-block mx-1 px-1">
-                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#f5c6c6]/70 -rotate-1"></span>
-                    <strong className="relative text-[#29251f]">business</strong>
+                  , and build systems that streamline the
+                  <span className="relative inline-block mx-1 px-1.5">
+                    <span className="absolute inset-x-0 bottom-1 h-3 bg-[#F6BFD3]/70 -rotate-1 rounded-sm"></span>
+                    <strong className="relative text-[#070D20]">business</strong>
                   </span>.
                 </p>
 
               </div>
 
               {/* Little diary note */}
-              <div className="mt-6 pl-4 border-l-2 border-[#e8c76a]">
-                <p className="font-serif italic text-sm text-[#786d5d] leading-relaxed">
-                  Thank you for stopping by. Here are some things I've made, learned, and loved along the way.                </p>
+              <div className="mt-6 pl-4 border-l-2 border-[#FFE34F]">
+                <p className="font-editorial italic text-xs md:text-sm text-[#141B2D]/75 leading-relaxed">
+                  Former SAP MM Intern at Accenture (Project: Telkomsel), Full Stack Dev Intern at PT NGI, and IISMA Awardee at P.Porto, Portugal.
+                </p>
               </div>
 
               {/* Explore */}
-              <div className="mt-7 pt-5 border-t border-dashed border-[#ded3bd]">
+              <div className="mt-7 pt-5 border-t border-dashed border-[#E8E2D5]">
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-2 font-serif text-sm font-semibold text-[#8c6b2f] hover:text-[#5f481e] transition-colors group"
+                  className="inline-flex items-center gap-2 font-mono-tag text-xs uppercase tracking-wider font-bold text-[#070D20] hover:text-[#070D20]/70 transition-colors group"
                 >
                   Open my work
                   <span className="group-hover:translate-x-1 transition-transform">

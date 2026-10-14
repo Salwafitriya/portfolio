@@ -1,44 +1,45 @@
 /* PORTFOLIO/resources/css/app.css */
 
-/* IMPORTANT: @theme directive MUST come BEFORE @import "tailwindcss";
-   and BEFORE any other @ directives or CSS rules.
-*/
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600;1,9..144,700&family=Poppins:wght@300;400;500;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Great+Vibes&display=swap');
 
-/* Class untuk Great Vibes */
+:root {
+  --color-navy: #070D20;
+  --color-ivory: #F5F1E8;
+  --color-ivory-card: #FFFFFF;
+  --color-ivory-border: #E8E2D5;
+  --color-yellow: #FFE34F;
+  --color-pink: #F6BFD3;
+  --color-sky: #BFE8EC;
+  --color-text-main: #141B2D;
+  --color-text-muted: #60687E;
+}
+
+.font-editorial {
+  font-family: 'Fraunces', Georgia, serif;
+}
+
+.font-poppins {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.font-mono-tag {
+  font-family: 'Space Mono', ui-monospace, monospace;
+}
+
 .font-great-vibes {
   font-family: 'Great Vibes', cursive;
 }
 
-/* Class untuk Poppins */
-.font-poppins {
-  font-family: 'Poppins', sans-serif;
-}
-
 @theme {
-  /* Define your custom theme variables as CSS custom properties */
-  --font-family-sans: "Lato", sans-serif;
+  --font-family-sans: 'Poppins', sans-serif;
+  --font-family-serif: 'Fraunces', Georgia, serif;
+  --font-family-mono: 'Space Mono', monospace;
 
-  --color-page-background: #F0F0E8;
-  --color-button-bg: #B9D19E;
-  --color-button-hover-bg: #A9C18E;
-  --color-text-dark: #333333;
-  --color-text-light: #666666;
-
-  /* Hanya definisikan @keyframes di dalam @theme */
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Hapus @animation fade-in-up dari sini! Tailwind akan membuatnya secara otomatis. */
+  --color-navy: #070D20;
+  --color-ivory: #F5F1E8;
+  --color-yellow: #FFE34F;
+  --color-pink: #F6BFD3;
+  --color-sky: #BFE8EC;
 }
 @import "tailwindcss";
 

@@ -1,135 +1,135 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import CardProject from '../components/CardProject';
+import { FaArrowLeft } from 'react-icons/fa';
 import projects from '../data/projectsData';
+import ProjectCard from '../components/ProjectCard';
 
-function Project() {
+function Projects() {
+    const navigate = useNavigate();
+    const [filter, setFilter] = useState('All');
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }, []);
+
+    const categories = useMemo(
+        () => ['All', ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean)))],
+        []
+    );
+    const visible = filter === 'All' ? projects : projects.filter((p) => p.category === filter);
+
+    // Featured project is the first item in the visible list
+    const featuredProject = visible[0];
+    const otherProjects = visible.slice(1);
+
     return (
         <section
             id="projects"
-            className="relative py-24 md:py-32 overflow-hidden bg-[#f5f1e8]"
+            className="min-h-screen bg-[#F5F1E8] text-[#141B2D]"
+            style={{ fontFamily: "'Poppins', sans-serif" }}
         >
-
-            {/* Subtle paper texture / atmosphere */}
-            <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-20 left-10 w-72 h-72 bg-[#e8d9b5]/20 rounded-full blur-3xl" />
-                <div className="absolute bottom-20 right-10 w-80 h-80 bg-[#d8c6a0]/15 rounded-full blur-3xl" />
-            </div>
-
-            <div className="relative z-10 max-w-6xl mx-auto px-5 sm:px-8 lg:px-12">
-
-                {/* ================= HEADER ================= */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12"
+            <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-16 pb-24">
+                <button
+                    onClick={() => navigate('/')}
+                    className="inline-flex items-center gap-2 text-xs font-mono-tag uppercase tracking-wider font-bold text-[#60687E] hover:text-[#070D20] transition-colors"
                 >
+                    <FaArrowLeft size={11} /> Back to Home
+                </button>
 
-                    {/* macOS breadcrumb */}
-                    <div className="inline-flex items-center gap-2 mb-5 px-4 py-2 rounded-full bg-white/70 border border-[#ddd4c4] shadow-sm">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f57]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#febc2e]" />
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#28c840]" />
-
-                        <span className="ml-2 text-xs font-mono text-[#8b8172]">
-                            Macintosh HD / Projects
+                {/* Editorial Header */}
+                <motion.header
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.45 }}
+                    className="mt-8 mb-12"
+                >
+                    <div className="flex flex-wrap items-center gap-2 mb-2">
+                        <span className="font-mono-tag text-xs uppercase tracking-widest font-bold text-[#070D20]/70 bg-[#FFE34F]/80 px-2.5 py-0.5 rounded">
+                            Curated Works
+                        </span>
+                        <span className="text-xs font-mono-tag text-[#60687E]">
+                            2023 — 2026
                         </span>
                     </div>
 
-                    <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5">
+                    <h1
+                        className="font-editorial text-[#070D20] font-bold tracking-tight"
+                        style={{ fontSize: 'clamp(2.4rem, 5.5vw, 4rem)', lineHeight: 1.08 }}
+                    >
+                        Selected <span className="italic font-normal">Projects</span>
+                    </h1>
 
-                        <div>
-                            <p className="font-serif italic text-[#a38b5b] text-sm mb-2">
-                                a little collection of my work ✦
-                            </p>
-
-                            <h2 className="font-serif text-5xl md:text-6xl text-[#29251f] leading-none">
-                                Projects
-                            </h2>
-
-                            <p className="mt-4 max-w-xl font-serif text-[#756d62] leading-relaxed">
-                                Things I've built, explored, and learned along the way.
-                                Each one holds a little piece of the journey.
-                            </p>
-                        </div>
-                    </div>
-                </motion.div>
-
-
-                {/* ================= PROJECT WINDOW ================= */}
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: 0.1 }}
-                    className="
-                        bg-[#faf9f6]/90
-                        backdrop-blur-xl
-                        border border-[#d9d3c8]
-                        rounded-2xl
-                        shadow-[0_20px_60px_rgba(70,60,45,0.12)]
-                        overflow-hidden
-                    "
-                >
-
-                    {/* macOS window header */}
-                    <div className="
-                        flex items-center justify-between
-                        px-5 py-3
-                        bg-[#eeece8]/90
-                        border-b border-[#d8d3ca]
-                    ">
-
-                        <div className="flex items-center gap-2">
-                            <span className="w-3 h-3 rounded-full bg-[#ff5f57]" />
-                            <span className="w-3 h-3 rounded-full bg-[#febc2e]" />
-                            <span className="w-3 h-3 rounded-full bg-[#28c840]" />
-                        </div>
-
-                        <span className="absolute left-1/2 -translate-x-1/2 text-xs font-medium text-[#817b72]">
-                            Projects
-                        </span>
-
-                        <div className="text-xs text-[#a29b91] font-mono">
-                            {projects.length} items
-                        </div>
-                    </div>
-
-
-                    {/* Project list */}
-                    <div className="p-5 sm:p-7 md:p-10 flex flex-col gap-7">
-
-                        {projects.map((project, index) => (
-                            <CardProject
-                                key={project.id}
-                                project={project}
-                                index={index}
-                            />
-                        ))}
-
-                    </div>
-
-                </motion.div>
-
-
-                {/* Bottom diary note */}
-                <motion.div
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 0.3 }}
-                    className="mt-10 text-center"
-                >
-                    <p className="font-serif italic text-sm text-[#8d8375]">
-                        More stories are still being written...
+                    <p className="mt-4 max-w-2xl text-[#60687E] font-light text-base leading-relaxed">
+                        Kumpulan proyek edukasi dan kolaborasi yang saya kerjakan, berfokus pada data analysis,
+                        sistem informasi, dan front-end development dengan sentuhan desain fungsional.
                     </p>
-                </motion.div>
 
+                    {/* Filter Bar with Editorial styling */}
+                    {categories.length > 2 && (
+                        <div className="mt-8 flex flex-wrap gap-2">
+                            {categories.map((c) => {
+                                const on = c === filter;
+                                return (
+                                    <button
+                                        key={c}
+                                        onClick={() => setFilter(c)}
+                                        className={`px-4 py-1.5 rounded-full text-xs font-mono-tag tracking-wider font-semibold transition-all duration-200 ${on
+                                                ? 'bg-[#070D20] text-[#FFE34F] shadow-sm'
+                                                : 'bg-white border border-[#E8E2D5] text-[#141B2D]/70 hover:border-[#070D20]/40'
+                                            }`}
+                                    >
+                                        {c}
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    )}
+                </motion.header>
+
+                {/* Editorial Collage Content */}
+                {visible.length === 0 ? (
+                    <p className="font-mono-tag text-slate-500 py-20 text-center">Belum ada proyek.</p>
+                ) : (
+                    <div key={filter} className="space-y-10">
+                        {/* 1. Featured Big Project */}
+                        {featuredProject && (
+                            <motion.div
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-40px' }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <ProjectCard project={featuredProject} isFeatured={true} />
+                            </motion.div>
+                        )}
+
+                        {/* 2. Structured Asymmetric Collage for Other Projects */}
+                        {otherProjects.length > 0 && (
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 pt-4">
+                                {otherProjects.map((p, i) => {
+                                    // Make 2nd item span 2 columns on medium/large if index matches to create rhythm
+                                    const isSpanned = i === 0 && otherProjects.length >= 3;
+                                    return (
+                                        <motion.div
+                                            key={p.slug}
+                                            initial={{ opacity: 0, y: 24 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: '-40px' }}
+                                            transition={{ duration: 0.45, delay: (i % 3) * 0.08 }}
+                                            className={isSpanned ? 'md:col-span-2 lg:col-span-2' : ''}
+                                        >
+                                            <ProjectCard project={p} isFeatured={false} />
+                                        </motion.div>
+                                    );
+                                })}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
         </section>
     );
 }
 
-export default Project;
+export default Projects;

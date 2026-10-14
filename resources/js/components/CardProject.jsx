@@ -30,18 +30,22 @@ const CardProject = ({ project }) => {
                 duration: 0.55,
                 ease: 'easeOut',
             }}
+            id={`project-${slug || project.id}`}
             className="
                 group
                 relative
                 w-full
-                h-[360px]
-                sm:h-[380px]
+                min-h-[460px]
+                sm:min-h-[440px]
+                lg:min-h-[430px]
                 rounded-2xl
                 overflow-hidden
                 border
                 border-[#d8d3ca]
                 shadow-[0_12px_35px_rgba(40,35,25,0.12)]
                 bg-[#f5f3ef]
+                flex
+                flex-col
             "
         >
 
@@ -97,7 +101,6 @@ const CardProject = ({ project }) => {
                         font-medium
                         text-[#706b63]
                     ">
-                        <span className="opacity-60">✦</span>
                         <span>{title}</span>
                     </div>
 
@@ -121,10 +124,12 @@ const CardProject = ({ project }) => {
                         flex
                         flex-col
                         justify-between
-                        p-7
-                        sm:p-9
+                        p-5
+                        sm:p-6
+                        lg:p-7
                         w-full
-                        sm:w-[55%]
+                        sm:w-[58%]
+                        shrink-0
                     ">
 
                         <div>
@@ -139,9 +144,9 @@ const CardProject = ({ project }) => {
                                     font-semibold
                                     tracking-[0.16em]
                                     uppercase
-                                    mb-5
+                                    mb-3
                                     px-3
-                                    py-1.5
+                                    py-1
                                     rounded-full
                                     backdrop-blur-md
                                     border
@@ -158,31 +163,31 @@ const CardProject = ({ project }) => {
 
 
                             {/* Title */}
-                            <h2
+                            <h4
                                 className="
                                     font-serif
                                     font-semibold
                                     text-[#29251f]
                                     leading-tight
-                                    mb-4
+                                    mb-2.5
                                     drop-shadow-sm
                                 "
                                 style={{
-                                    fontSize: 'clamp(1.2rem, 2.5vw, 1.7rem)',
+                                    fontSize: 'clamp(1.15rem, 1.8vw, 1.45rem)',
                                 }}
                             >
                                 {title}
-                            </h2>
+                            </h4>
 
 
                             {/* Description */}
                             <p className="
                                 text-[#514a40]
                                 text-sm
-                                sm:text-[15px]
                                 leading-relaxed
                                 max-w-md
                                 font-serif
+                                line-clamp-3
                             ">
                                 {description}
                             </p>
@@ -247,26 +252,27 @@ const CardProject = ({ project }) => {
                     <div className="
                         relative
                         z-10
-                        flex-shrink-0
+                        flex-1
                         w-full
-                        sm:w-[45%]
-                        h-[180px]
-                        sm:h-full
+                        sm:w-[42%]
+                        min-h-[170px]
+                        sm:min-h-0
+                        h-full
                         flex
                         items-center
                         justify-center
-                        p-5
-                        sm:p-7
+                        p-4
+                        sm:p-5
                     ">
 
                         {/* subtle glass behind mockup */}
-                        <div className="
+                        {/* <div className="
                             absolute
                             inset-5
                             rounded-xl
                             bg-white/10
                             backdrop-blur-[2px]
-                        " />
+                        " /> */}
 
                         {mockup && (
                             <motion.img

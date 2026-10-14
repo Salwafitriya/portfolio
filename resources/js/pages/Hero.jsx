@@ -1,357 +1,176 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { ReactTyped } from 'react-typed';
+import { FaArrowRight, FaFolder } from 'react-icons/fa';
 
-// Ikon Folder SVG yang digunakan agar ringan dan tajam
-const FolderIcon = () => (
-  <svg
-    width="64"
-    height="64"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="#72b8f8"
-    strokeWidth="1"
-    style={{ filter: 'drop-shadow(0px 4px 6px rgba(0,0,0,0.15))' }}
+/* ─── Atur konten hero di sini ─────────────────────────────── */
+const CONFIG = {
+  name: "Salwa Fitriya's",
+  words: ['portfolio'],                 // 1 kata = diketik sekali; lebih dari 1 = bergantian
+  tagline: 'SAP S/4HANA Materials Management (MM) · Data Analyst · Software Engineer',
+  image: '/assets/foto/bg-porto-1.jpg',               // ganti dengan path foto Anda
+  cvUrl: '/cv.pdf',                     // ganti dengan path/link CV
+  nav: [
+    { label: 'Home', href: '#home' },
+    { label: 'About', href: '#about' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Internships', href: '#internship' },
+    { label: 'Activities', href: '#activities' },
+    { label: 'Certifications', href: '#certification' },
+    { label: 'Contact', href: '#contact' },
+  ],
+};
+
+/* Efek mengetik sederhana */
+function useTypewriter(words, { type = 110, erase = 60, hold = 1600 } = {}) {
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) {
+      setText(words[0]);
+      return;
+    }
+    let w = 0;
+    let i = 0;
+    let deleting = false;
+    let t;
+
+    const tick = () => {
+      const word = words[w];
+      if (!deleting) {
+        i += 1;
+        setText(word.slice(0, i));
+        if (i === word.length) {
+          if (words.length === 1) return;
+          deleting = true;
+          t = setTimeout(tick, hold);
+          return;
+        }
+        t = setTimeout(tick, type);
+      } else {
+        i -= 1;
+        setText(word.slice(0, i));
+        if (i === 0) {
+          deleting = false;
+          w = (w + 1) % words.length;
+          t = setTimeout(tick, 300);
+          return;
+        }
+        t = setTimeout(tick, erase);
+      }
+    };
+
+    t = setTimeout(tick, 500);
+    return () => clearTimeout(t);
+  }, [words, type, erase, hold]);
+
+  return text;
+}
+
+const FolderChip = ({ href, label, external }) => (
+  <a
+    href={href}
+    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+    className="group inline-flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#070D20]/75 backdrop-blur-md border border-white/20 text-white transition-all duration-200 hover:bg-[#FFE34F] hover:text-[#070D20] hover:border-[#FFE34F] hover:-translate-y-0.5 shadow-lg"
   >
-    <path
-      d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"
-      fill="#90caf9"
-    />
-  </svg>
+    <FaFolder size={16} className="text-[#FFE34F] group-hover:text-[#070D20] transition-colors" />
+    <span className="text-xs sm:text-sm font-medium tracking-wide">{label}</span>
+  </a>
 );
 
-const HeroPage = () => {
-  // Variabel untuk animasi teks utama
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2, // Menampilkan elemen satu per satu
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" },
-    },
-  };
+export default function Hero() {
+  const typed = useTypewriter(CONFIG.words);
 
   return (
     <section
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        width: '100%',
-        backgroundImage: "url('/assets/foto/bg-porto-1.jpg')",
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        display: 'flex',
-        flexDirection: 'column',
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Display', sans-serif",
-        overflow: 'hidden'
-      }}
+      id="home"
+      className="relative min-h-screen w-full overflow-hidden text-white"
+      style={{ fontFamily: "'Poppins', sans-serif" }}
     >
-      {/* LAPISAN BLUR OVERLAY */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backdropFilter: 'blur(2px)',
-          WebkitBackdropFilter: 'blur(2px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
-          zIndex: 1,
-        }}
+      {/* Foto latar + overlay agar teks selalu terbaca */}
+      <img
+        src={CONFIG.image}
+        alt=""
+        className="absolute inset-0 w-full h-full object-cover"
       />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#070D20]/90 via-[#070D20]/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#070D20]/50 via-transparent to-[#070D20]/70" />
 
-      {/* ── TOP NAV BAR (Home, Project, Contact) ── */}
-      {/* Posisi Navbar diubah ke paling atas */}
-      <nav
-        style={{
-          position: 'absolute',
-          top: '32px', // Jarak dari atas layar
-          left: '0',
-          right: '0',
-          display: 'flex',
-          justifyContent: 'center',
-          gap: '12px',
-          zIndex: 20, // Z-index tinggi agar selalu di atas
-        }}
-      >
-        {['Home', 'Project', 'Contact'].map((item) => (
-          <a
-            key={item}
-            href={`#${item.toLowerCase()}`}
-            style={{
-              padding: '6px 20px',
-              border: '1px solid rgba(0, 0, 0, 0.4)',
-              borderRadius: '99px',
-              fontSize: '0.9rem',
-              color: '#000', // Teks navbar hitam seperti di gambar referensi
-              textDecoration: 'none',
-              backdropFilter: 'blur(4px)',
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', // Transparan sedikit
-              transition: 'all 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
-              e.currentTarget.style.transform = 'translateY(-2px)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-              e.currentTarget.style.transform = 'translateY(0)';
-            }}
-          >
-            {item}
-          </a>
-        ))}
+      {/* Navigasi */}
+      <nav className="fixed top-5 left-1/2 -translate-x-1/2 z-50">
+        <ul className="flex items-center gap-1.5 p-1.5 rounded-full bg-[#070D20]/80 backdrop-blur-md border border-white/15 shadow-xl">
+          {CONFIG.nav.map((n) => (
+            <li key={n.label}>
+              <a
+                href={n.href}
+                className="block px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium tracking-wide text-white/80 hover:bg-white/15 hover:text-white transition-all duration-200"
+              >
+                {n.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </nav>
 
-      {/* ── MAIN CONTENT (Judul & Tombol Explore) ── */}
-      <motion.div
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
-        style={{
-          flexGrow: 1,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center', // Mengubah ini ke center, lalu mengatur top negatif
-          position: 'relative',
-          zIndex: 5,
-          pointerEvents: 'none', // Agar area yang kosong tidak menghalangi drag folder
-        }}
-      >
-        {/* Teks dinaikkan secara signifikan dengan top negatif */}
-        <div style={{ position: 'relative', textAlign: 'center', top: '-120px', pointerEvents: 'auto' }}>
+      {/* Konten utama */}
+      <div className="relative min-h-screen max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] flex flex-col justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs tracking-wider uppercase font-medium text-white/85 mb-3">
+            <span className="w-2 h-2 rounded-full bg-[#FFE34F] animate-pulse"></span>
+            Welcome to
+          </div>
 
-          {/* 1. Teks Utama: Salwa Fitriya's */}
-          <motion.h1
-            variants={itemVariants} // Menggunakan delay bawaan (muncul pertama)
-            style={{
-              fontFamily: "'Helvetica World', 'Helvetica', Arial, sans-serif",
-              fontSize: 'clamp(4rem, 10vw, 8rem)',
-              fontWeight: 400,
-              color: '#ffffffff',
-              lineHeight: 1,
-              margin: 0,
-              letterSpacing: '-0.04em',
-              textShadow: '0px 4px 10px rgba(0,0,0,0.2)',
-            }}
+          <h1
+            className="mt-2 font-semibold tracking-tight leading-[1.05]"
+            style={{ fontSize: 'clamp(2.6rem, 7vw, 5.5rem)' }}
           >
-            Salwa Fitriya's
-          </motion.h1>
+            {CONFIG.name}
+          </h1>
 
-          {/* 2. Kotak Kuning (Muncul setelah judul selesai) */}
-          <motion.div
-            variants={{
-              hidden: { opacity: 0, scale: 0.9 }, // Efek membesar sedikit
-              visible: {
-                opacity: 1,
-                scale: 1,
-                transition: { duration: 0.5, delay: 1.1, ease: "easeOut" } // Delay 1.1 detik menunggu judul selesai
-              },
-            }}
-            style={{
-              backgroundColor: '#fde047',
-              padding: '4px 32px',
-              display: 'inline-block',
-              position: 'relative',
-              top: '5px',
-              left: '10%',
-            }}
-          >
+          {/* kata yang diketik */}
+          <div className="mt-4">
             <span
-              style={{
-                fontFamily: "'Times New Roman', 'Georgia', serif",
-                fontStyle: 'italic',
-                fontWeight: 600,
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                color: '#000',
-                lineHeight: 1,
-              }}
+              className="inline-flex items-center rounded-lg bg-[#FFE34F] px-4 py-1 text-[#070D20] font-editorial italic font-bold shadow-md"
+              style={{ fontSize: 'clamp(2rem, 5.2vw, 4rem)', lineHeight: 1.15 }}
             >
-              {/* Animasi Ketik (Mulai setelah kotak kuning muncul) */}
-              <ReactTyped
-                strings={["portfolio"]}
-                typeSpeed={80}
-                startDelay={1500} // Menunggu 1.5 detik dari awal halaman dimuat baru mulai ngetik
-                showCursor={true}
-                cursorChar="|"
-                loop={false}
-              />
+              <span className="min-w-[0.5ch]">{typed}</span>
+              <span className="ml-1 inline-block w-[3px] h-[0.85em] bg-[#070D20] animate-pulse" aria-hidden="true" />
             </span>
-          </motion.div>
-        </div>
+          </div>
 
-        {/* 3. Link Explore my Works (Muncul paling akhir setelah ketikan selesai) */}
-        <motion.div
-          variants={{
-            hidden: { opacity: 0, y: 30 },
-            visible: {
-              opacity: 1,
-              y: 0,
-              transition: { duration: 0.8, delay: 2.5, ease: "easeOut" } // Delay 2.5 detik agar muncul terakhir
-            },
-          }}
-          style={{ position: 'absolute', bottom: '15vh', pointerEvents: 'auto' }}
-        >
-          <a
-            href="#projects"
-            style={{
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              color: '#000',
-              textDecoration: 'none',
-              backgroundColor: 'rgba(255, 255, 255, 0.75)',
-              backdropFilter: 'blur(6px)',
-              padding: '10px 28px',
-              borderRadius: '99px',
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-              transition: 'all 0.3s ease',
-              display: 'inline-block',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-              e.currentTarget.style.transform = 'translateY(-3px)';
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.75)';
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            }}
-          >
-            Explore my Works
-          </a>
+          <p className="mt-6 text-base sm:text-lg font-light text-white/85 max-w-xl leading-relaxed">{CONFIG.tagline}</p>
+
+          <div className="mt-9 flex flex-wrap items-center gap-3">
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FFE34F] text-[#070D20] text-sm font-semibold shadow-lg hover:shadow-xl hover:bg-white transition-all duration-200 hover:-translate-y-0.5"
+            >
+              Explore my works <FaArrowRight size={12} />
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 rounded-full border border-white/40 text-white text-sm font-semibold transition-all duration-200 hover:bg-white/15 hover:border-white"
+            >
+              Get in touch
+            </a>
+          </div>
         </motion.div>
+      </div>
 
-        {/* Link Explore my Works (Tetap di bawah teks) */}
-        <motion.div
-          variants={itemVariants}
-          style={{ position: 'absolute', bottom: '15vh', pointerEvents: 'auto' }}
-        >
-          <a
-            href="#projects"
-            style={{
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              color: '#000', // Teks hitam agar kontras
-              textDecoration: 'none',
-              backgroundColor: 'rgba(255, 255, 255, 0.75)', // Latar belakang putih semi-transparan
-              backdropFilter: 'blur(6px)', // Efek blur kaca
-              padding: '10px 28px', // Memberikan ruang (padding) agar terlihat seperti tombol
-              borderRadius: '99px', // Membuat sudut melingkar sempurna (bentuk kapsul)
-              boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)', // Bayangan lembut agar tombol terangkat
-              transition: 'all 0.3s ease',
-              display: 'inline-block',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.95)'; // Menjadi lebih solid saat di-hover
-              e.currentTarget.style.transform = 'translateY(-3px)'; // Efek sedikit naik
-              e.currentTarget.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.2)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.75)'; // Kembali transparan
-              e.currentTarget.style.transform = 'translateY(0)';
-              e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.15)';
-            }}
-          >
-            Explore my Works
-          </a>
-        </motion.div>
-      </motion.div>
-
-      {/* ── DESKTOP FOLDERS (Bisa Di-Drag) ── */}
+      {/* Folder: Contact Me & CV */}
       <motion.div
-        initial={{ opacity: 0, x: 50 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 1, delay: 1 }}
-        style={{
-          position: 'absolute',
-          right: '8%',
-          top: '50%',
-          transform: 'translateY(-50%)',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '40px',
-          zIndex: 10,
-        }}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="absolute bottom-8 left-6 sm:left-auto sm:right-10 lg:right-[94px] flex flex-wrap gap-3 z-20"
       >
-        {/* Folder Contact Me - Sekarang bisa di drag */}
-        <motion.a
-          href="mailto:salwafitriyatunnisa@gmail.com"
-          drag // Mengaktifkan fitur drag
-          dragConstraints={{ left: -1000, right: 100, top: -500, bottom: 500 }} // Batasan area drag
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textDecoration: 'none',
-            cursor: 'grab', // Kursor menunjukkan item bisa diseret
-          }}
-        >
-          <FolderIcon />
-          <span
-            style={{
-              fontSize: '0.9rem',
-              fontWeight: 600, // Dipertebal sedikit
-              color: '#000', // Teks hitam
-              marginTop: '4px',
-              backgroundColor: 'rgba(255, 255, 255, 0.7)', // Latar putih semi-transparan (sesuai referensi)
-              padding: '2px 8px',
-              borderRadius: '4px',
-            }}
-          >
-            Contact Me
-          </span>
-        </motion.a>
-
-        {/* Folder CV - Sekarang bisa di drag */}
-        <motion.a
-          href="https://drive.google.com/open?id=1p7ysE3TkWFV4J1sIYwWcQ0LPTQJGCbeR"
-          target="_blank"
-          rel="noopener noreferrer"
-          drag // Mengaktifkan fitur drag
-          dragConstraints={{ left: -1000, right: 100, top: -500, bottom: 500 }} // Batasan area drag
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            textDecoration: 'none',
-            cursor: 'grab', // Kursor menunjukkan item bisa diseret
-          }}
-        >
-          <FolderIcon />
-          <span
-            style={{
-              fontSize: '0.9rem',
-              fontWeight: 600, // Dipertebal sedikit
-              color: '#000', // Teks hitam
-              marginTop: '4px',
-              backgroundColor: 'rgba(255, 255, 255, 0.7)', // Latar putih semi-transparan (sesuai referensi)
-              padding: '2px 8px',
-              borderRadius: '4px',
-            }}
-          >
-            CV
-          </span>
-        </motion.a>
+        <FolderChip href="#contact" label="Contact Me" />
+        <FolderChip href={CONFIG.cvUrl} label="CV" external />
       </motion.div>
-
     </section>
   );
-};
-
-export default HeroPage;
+}

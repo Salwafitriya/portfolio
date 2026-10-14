@@ -42,9 +42,12 @@ function ProjectDetail() {
         return (
             <div className="min-h-screen flex flex-col items-center justify-center gap-6 bg-white text-slate-900">
                 <h2 className="text-3xl font-bold">Project not found</h2>
-                <Link to="/#projects" className="text-indigo-600 underline underline-offset-4 text-sm font-medium">
+                <a
+                    href="/#projects"
+                    className="text-indigo-600 underline underline-offset-4 text-sm font-medium"
+                >
                     ← Back to projects
-                </Link>
+                </a>
             </div>
         );
     }
@@ -68,82 +71,85 @@ function ProjectDetail() {
     const hasLinks = links.github || links.demo || links.youtube || links.figma;
 
     return (
-        <div className="min-h-screen bg-white text-slate-900" style={{ fontFamily: "'Poppins', sans-serif" }}>
+        <div className="min-h-screen bg-[#F5F1E8] text-[#141B2D]" style={{ fontFamily: "'Poppins', sans-serif" }}>
             {/* ── Hero ── */}
-            <header className="relative w-full h-[260px] sm:h-[320px] overflow-hidden bg-slate-100">
+            <header className="relative w-full h-[260px] sm:h-[320px] overflow-hidden bg-[#FAF7F0] border-b border-[#E8E2D5]">
                 {heroImage && (
                     <img
                         src={heroImage}
                         alt=""
-                        className="absolute inset-0 w-full h-full object-cover scale-105"
+                        className="absolute inset-0 w-full h-full object-cover scale-105 opacity-25"
                     />
                 )}
-                {/* kabut putih + sedikit warna aksen, memudar ke putih di bagian bawah */}
-                <div className="absolute inset-0 bg-white/75" />
-                <div
-                    className="absolute inset-0"
-                    style={{ background: `linear-gradient(135deg, ${accent}22 0%, transparent 60%)` }}
-                />
-                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" />
+                {/* kabut lembut memudar ke ivory di bagian bawah */}
+                <div className="absolute inset-0 bg-[#F5F1E8]/70" />
+                <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#F5F1E8] to-transparent" />
+
+                {/* Back button on top */}
+                <div className="absolute top-6 left-6 z-20">
+                    <button
+                        onClick={() => navigate(`/#projects`)}
+                        className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#E8E2D5] text-xs font-mono-tag font-bold uppercase tracking-wider text-[#141B2D]/80 hover:text-[#070D20] hover:bg-white shadow-sm transition-all"
+                    >
+                        <FaArrowLeft className="text-xs" />
+                        Back to Projects
+                    </button>
+                </div>
 
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
-                    className="relative h-full flex flex-col items-center justify-center gap-3 px-6 pb-6 text-center"
+                    className="relative h-full flex flex-col items-center justify-center gap-3 px-6 pb-6 text-center max-w-4xl mx-auto"
                 >
                     {category && (
-                        <span
-                            className="text-xs font-medium px-3 py-1 rounded-full"
-                            style={{ color: accent, backgroundColor: `${accent}1f` }}
-                        >
+                        <span className="text-xs font-mono-tag font-semibold px-3 py-1 rounded-full bg-[#070D20] text-[#FFE34F]">
                             {category}
                         </span>
                     )}
                     <h1
-                        className="font-bold text-slate-900 leading-tight max-w-4xl"
-                        style={{ fontSize: 'clamp(1.6rem, 3.6vw, 2.8rem)' }}
+                        className="font-editorial font-bold text-[#070D20] leading-tight"
+                        style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)' }}
                     >
                         {title}
                     </h1>
-                    {year && <p className="text-sm text-slate-500">{year}</p>}
+                    {year && <p className="text-xs font-mono-tag text-[#60687E]">{year}</p>}
                 </motion.div>
             </header>
 
             {/* ── Konten ── */}
-            <main className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pb-20">
+            <main className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pb-20 pt-8">
                 <div className="grid grid-cols-1 md:grid-cols-[1.25fr_1fr] gap-8 md:gap-14 items-start">
                     {/* About */}
-                    <section>
-                        <h2 className="text-lg font-semibold mb-3 flex items-center gap-3">
-                            <span className="inline-block w-1 h-5 rounded-full" style={{ backgroundColor: accent }} />
+                    <section className="bg-white rounded-3xl p-6 sm:p-8 border border-[#E8E2D5] shadow-sm">
+                        <h2 className="font-editorial text-xl font-bold mb-4 flex items-center gap-3 text-[#070D20]">
+                            <span className="inline-block w-1.5 h-5 rounded-full bg-[#FFE34F]" />
                             About the Project
                         </h2>
-                        <p className="text-base leading-relaxed text-slate-700 text-justify">
+                        <p className="text-sm sm:text-base leading-relaxed text-[#141B2D]/85 font-light">
                             {longDescription || description}
                         </p>
                     </section>
 
                     {/* Info card */}
                     <aside
-                        className="rounded-2xl border p-6 flex flex-col gap-6 bg-slate-50/60"
-                        style={{ borderColor: `${accent}33` }}
+                        className="rounded-3xl border border-[#E8E2D5] p-6 sm:p-8 flex flex-col gap-6 bg-white shadow-sm"
                     >
                         {role && (
                             <div>
-                                <h2 className="text-sm font-semibold text-slate-500 mb-1">Role</h2>
-                                <p className="text-base font-medium">{role}</p>
+                                <h2 className="font-mono-tag text-xs font-bold uppercase tracking-wider text-[#60687E] mb-1">Role</h2>
+                                <p className="text-sm sm:text-base font-semibold text-[#070D20]">{role}</p>
                             </div>
                         )}
 
                         {tech.length > 0 && (
                             <div>
-                                <h2 className="text-sm font-semibold text-slate-500 mb-2">Tech</h2>
-                                <div className="flex flex-wrap gap-2">
+                                <h2 className="font-mono-tag text-xs font-bold uppercase tracking-wider text-[#60687E] mb-2">Tech Stack</h2>
+                                <div className="flex flex-wrap gap-1.5">
                                     {tech.map((t) => (
                                         <span
                                             key={t}
-                                            className="px-3 py-1 rounded-full text-sm bg-white border border-slate-200 text-slate-700"
+                                            className="px-2.5 py-1 rounded-md text-xs font-mono-tag bg-[#F5F1E8] text-[#141B2D]/80"
                                         >
                                             {t}
                                         </span>
@@ -199,11 +205,11 @@ function ProjectDetail() {
 
                 <div className="mt-16 pt-8 border-t border-slate-200">
                     <button
-                        onClick={() => navigate('/#projects')}
+                        onClick={() => navigate(`/#project-${slug || project?.id || 'projects'}`)}
                         className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
                     >
                         <FaArrowLeft />
-                        All Projects
+                        Back to Projects
                     </button>
                 </div>
             </main>
