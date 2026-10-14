@@ -8,7 +8,7 @@ const internships = [
         company: 'Accenture Indonesia',
         shortName: 'Accenture (ACN)',
         role: 'SAP Materials Management Intern',
-        location: 'Jakarta / Semarang, Indonesia',
+        location: 'Semarang, Indonesia',
         period: '19 Nov 2025 – 13 Mar 2026',
         clientProject: 'Project: Telkomsel',
         type: 'Enterprise Consulting',
@@ -22,18 +22,38 @@ const internships = [
             'Contributed to procurement workflow improvements by preparing daily Excel reports, enabling faster project monitoring',
             'Contributed to the development of Generative AI solutions within the project to support process improvement and business needs',
         ],
+        specializedSkills: [
+            'SAP MM Non-Finance Configuration',
+            'Procurement Process Mapping',
+            'Root Cause Analysis',
+            'Functional Consulting',
+            'ERP Workflow Analysis',
+        ],
+        technologies: ['SAP S/4HANA', 'SAP MM', 'Microsoft Excel'],
+        softSkills: ['Analytical Thinking', 'Client Communication', 'Cross-team Collaboration', 'Attention to Detail'],
+        stats: [
+            { value: '20+', label: 'Issues solved' },
+            { value: '10,000+', label: 'Records processed' },
+        ],
+        // referral: null,
         photos: [
             {
                 url: '/assets/foto/internship/acn/acn 1.jpeg',
-                caption: 'Accenture Indonesia — Project kickoff & SAP MM Consulting session',
             },
             {
                 url: '/assets/foto/internship/acn/acn 2.jpeg',
-                caption: 'Procurement data validation & workflow analysis moment',
             },
             {
-                url: '/assets/foto/internship/acn/acn 3.jpeg',
-                caption: 'Team collaboration and milestone achievement at Accenture',
+                url: '/assets/foto/internship/acn/acnkerja.jpg',
+            },
+            {
+                url: '/assets/foto/internship/acn/acnkerja1.jpg',
+            },
+            {
+                url: '/assets/foto/internship/acn/acnkerja2.jpg',
+            },
+            {
+                url: '/assets/foto/internship/acn/dinner with leader.jpg',
             },
         ],
     },
@@ -55,30 +75,42 @@ const internships = [
             'Designed database schemas, feature specifications, and wireframes supporting end-to-end development',
             'Conducted testing, debugging, and performance optimization to ensure high system reliability',
         ],
+        specializedSkills: [
+            'Full-Stack Web Development (MVC)',
+            'Database Schema Design',
+            'Software Requirements Specification (SRS)',
+            'Unit Testing & Debugging',
+            'Wireframing & Prototyping',
+        ],
+        technologies: ['CodeIgniter 4', 'PHP', 'MySQL', 'Bootstrap', 'JavaScript', 'Figma', 'Git', 'DBeaver'],
+        softSkills: ['Problem Solving', 'Proactive Communication', 'Project Management', 'Teamwork'],
+        stats: [
+            { value: '2', label: 'Modules built' },
+            { value: '40+', label: 'Employees served' },
+        ],
+        // referral: {
+        //     name: 'Eky Anggara',
+        //     title: 'Mentor and UI/UX Designer',
+        //     mail: 'ekyanggara@gmail.com/',
+        // },
         photos: [
             {
-                url: '/assets/foto/internship/ngi/ngi 1.JPG',
-                caption: 'Sprint review and software development session at NGI',
+                url: '/assets/foto/internship/ngi/ngi 1.png',
             },
             {
                 url: '/assets/foto/internship/ngi/ngi 2.jpeg',
-                caption: 'Full-stack engineering workspace and module implementation',
             },
             {
                 url: '/assets/foto/internship/ngi/ngi 3.jpeg',
-                caption: 'Project milestone presentation with the development team',
             },
             {
                 url: '/assets/foto/internship/ngi/ngi 4.jpeg',
-                caption: 'Feature specification and schema design discussion',
             },
             {
                 url: '/assets/foto/internship/ngi/ngi 6.jpeg',
-                caption: 'Completion and acknowledgment ceremony at PT NGI',
             },
             {
                 url: '/assets/foto/internship/ngi/ngi 7.jpeg',
-                caption: 'Engineering team solidarity and project wrap-up',
             },
         ],
     },
@@ -86,19 +118,37 @@ const internships = [
         id: 3,
         company: 'PT Phapros Tbk',
         shortName: 'PT Phapros Tbk',
-        role: 'System Analyst & IT Intern',
+        role: 'Audit, Monitoring, and Data Analytics',
         location: 'Semarang, Indonesia',
-        period: '2024',
-        clientProject: 'Enterprise IT Operations',
+        period: 'Sept 2026 - Present',
+        clientProject: 'Internal Audit',
         type: 'Pharmaceutical Industry',
-        badge: 'System Analyst',
+        badge: 'Data Analyst',
         description:
-            'Engaged in enterprise information system analysis, business process mapping, and operational workflow optimization for pharmaceutical manufacturing IT systems.',
+            'Contributed to data-driven internal audit initiatives in pharmaceutical manufacturing through operational and financial data analysis, historical production and BOP data preparation, and the development of performance dashboards using Power BI.',
         highlights: [
-            'Analyzed departmental operational workflows to identify digital optimization and system improvement opportunities',
-            'Drafted software requirements specifications (SRS) and comprehensive business process flowcharts',
-            'Collaborated with cross-functional teams to ensure data integrity and compliance across enterprise systems',
+            'Supported data analytical audits by collecting, preparing, and analyzing historical production and BOP data from enterprise systems.',
+            'Analyzed operational and financial data (procurement, inventory, maintenance, R&D, asset depreciation, quality) to identify trends and support audit insights.',
+            'Developed performance dashboards and data visualizations using PowerBI.',
         ],
+        specializedSkills: [
+            'Data Analytics for Internal Audit',
+            'Financial & Operational Data Analysis',
+            'Dashboard Development',
+            'BOP Data Preparation',
+            'Trend Analysis',
+        ],
+        technologies: ['Power BI', 'Microsoft Excel', 'QAD'],
+        softSkills: ['Analytical Thinking', 'Data-Driven Decision Making', 'Integrity & Confidentiality', 'Detail-Oriented'],
+        stats: [
+            // { value: '2', label: 'Dashboards built' },
+            // { value: '6+', label: 'Departments analyzed' },
+        ],
+        // referral: {
+        //     name: 'Salwa Nadhifa Rahma',
+        //     title: 'Jabatan mentor atau supervisor',
+        //     linkedin: 'https://www.linkedin.com/in/salwa-nadhifa-rahma/',
+        // },
         photos: [
             {
                 url: '/assets/foto/internship/Phapros/phapros 1.jpeg',

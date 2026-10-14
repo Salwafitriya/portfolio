@@ -192,7 +192,7 @@ const HeroSection = () => {
               fontFamily: "'Poppins', sans-serif",
               fontSize: '0.95rem',
               fontWeight: 600,
-              color: '#111111',
+              color: '#575454ff',
               textDecoration: 'none',
               // border: '2px solid #111111',
               // borderRadius: '999px',

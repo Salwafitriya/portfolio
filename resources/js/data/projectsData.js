@@ -49,9 +49,9 @@ const projects = [
         background: '#d8c6a0',
         accent: '#4F67E8',
         links: {
-            demo: 'https://sigasi.web.id/',
+            github: 'https://github.com/vierohanz/SIGASI',
         },
-        tech: ['Laravel', 'Leaflet.js', 'PostgreSQL', 'Figma'],
+        tech: ['Laravel', 'Leaflet.js', 'PostgreSQL', 'Figma', 'Notion'],
         year: '2024',
         role: 'Front End Developer & System Analyst',
         longDescription:
@@ -86,7 +86,7 @@ const projects = [
         year: '2024',
         role: 'Database Designer & System Analyst',
         longDescription:
-            'SIRATA replaces paper-based letter requests with a fully digital workflow. Students submit requests online; staff review, approve, and issue official letters electronically. Notification emails and real-time status tracking reduce turnaround time significantly.',
+            'SIRATA replaces paper-based letter requests with a fully digital workflow. Students submit requests online. Staff review, approve, and issue official letters electronically. Notification emails and real-time status tracking reduce turnaround time significantly.',
         documentation: [
             '/assets/project/sirata/Lacak Surat.png',
             '/assets/project/sirata/Preview (1).png',
@@ -101,7 +101,7 @@ const projects = [
         title: 'Website Pencatatan Posyandu',
         category: 'Web Development',
         description:
-            'A web-based information system for recording and monitoring toddler growth and pregnant-women data at community health posts.',
+            'A web-based dashboard designed to help officers record and manage children’s nutritional data, including weight, height, and MUAC measurements, in a more organized and accessible way.',
         image: '/assets/Web_Nirmala.png',
         mockup: '/assets/mockup/posyandu web.png',
         background: '#FFF8E7',
@@ -109,11 +109,11 @@ const projects = [
         links: {
             github: 'https://github.com/Salwafitriya/Posyandu_SimpleWeb.git',
         },
-        tech: ['PHP', 'MySQL', 'Bootstrap'],
+        tech: ['PHP', 'MySQL', 'JavaScript', 'HTML', 'CSS', 'Bootstrap'],
         year: '2023',
         role: 'Full-Stack Developer',
         longDescription:
-            'This system was built for Posyandu Nirmala to replace handwritten registers. Officers input monthly weight, height, and MUAC measurements; the system auto-generates growth charts and flags children at nutritional risk.',
+            'This system was built to replace handwritten registers. Officers input monthly weight, height, and MUAC measurements; the system auto-generates growth charts and flags children at nutritional risk.',
         documentation: [
             '/assets/project/webposyandu/Screenshot 2025-06-20 125824.png',
             '/assets/project/webposyandu/Screenshot 2025-06-20 130001.png',
@@ -137,7 +137,7 @@ const projects = [
         year: '2024',
         role: 'UI/UX Designer',
         longDescription:
-            'Mingle was designed from scratch in Figma, covering end-to-end user flows: onboarding, project dashboards, task Kanban, calendar view, and team chat. The design emphasises clarity and speed, reducing cognitive load for busy teams.',
+            'Mingle was designed from scratch in Figma, covering end-to-end project managements needs: Dashboards, task Kanban, calendar view, and task details. The design emphasises clarity and speed, reducing cognitive load for busy teams.',
         documentation: [
             '/assets/project/mingle/mingle1.png',
             '/assets/project/mingle/mingle2.png',
@@ -183,7 +183,7 @@ const projects = [
         links: {
             youtube: 'https://youtu.be/plbw_RV6gUw',
         },
-        tech: ['Flutter', 'AR', 'AI', 'Firebase'],
+        tech: ['Figma', 'Notion'],
         year: '2024',
         role: 'UI/UX Designer & System Analyst',
         longDescription:
@@ -193,6 +193,37 @@ const projects = [
         documentation: [
             '/assets/project/DESAGED/1.png',
             '/assets/project/DESAGED/2.png',
+        ],
+    },
+    {
+        id: 8,
+        slug: 'nuraga',
+        title: 'Nuraga Mobile App',
+        category: 'UI/UX Design',
+        description:
+            'A web and mobile application designed to streamline the reporting of people with mental health conditions in Central Java. Users can submit reports with clear location details, track report progress, and find nearby psychiatric hospitals (RSJ) to help connect individuals with appropriate care.',
+        image: '/assets/project/nuraga/MAIN.jpg',
+        mockup: '/assets/project/nuraga/DETAIL LAPORAN.png',
+        background: '#F5F0FF',
+        accent: '#8B44F7',
+        links: {
+            youtube: 'https://youtu.be/plbw_RV6gUw',
+        },
+        tech: ['Figma'],
+        year: '2023',
+        role: 'System Analyst & Project Manager',
+        longDescription:
+            'DESAGED turns traditional village tourism into a smart experience. Visitors can scan heritage objects for AR overlays with historical facts, use an AI chatbot for local recommendations, and explore a virtual map of the village.',
+        figma: 'https://www.figma.com/proto/kVJyy9P1HjCC2YNsG9IXl2/LOMBA-UPNVJ?node-id=409-736&t=pGkyBBNMrB67q1MZ-1&scaling=min-zoom&content-scaling=fixed&page-id=74%3A224&starting-point-node-id=409%3A736&show-proto-sidebar=1',
+
+        documentation: [
+            '/assets/project/nuraga/MAIN.jpg',
+            '/assets/project/nuraga/DETAIL LAPORAN.jpg',
+            '/assets/project/nuraga/MAIN PAGE.png',
+            '/assets/project/nuraga/LAPOR PAGE 6.png',
+            '/assets/project/nuraga/DETAIL LAPORAN.png',
+            '/assets/project/nuraga/RIWAYAT PAGE.png',
+            '/assets/project/nuraga/SEARCH PAGE.png',
         ],
     },
 ];

@@ -12,6 +12,7 @@ export default function ProjectCard({ project, isFeatured = false }) {
     if (isFeatured) {
         return (
             <Link
+                id={`project-${slug}`}
                 to={`/projects/${slug}`}
                 className="group relative block rounded-3xl bg-white border border-[#E8E2D5] p-6 sm:p-8 lg:p-10 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden"
             >
@@ -21,7 +22,7 @@ export default function ProjectCard({ project, isFeatured = false }) {
                         <div>
                             <div className="flex flex-wrap items-center gap-2.5 mb-4">
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#070D20] text-[#FFE34F] text-xs font-mono-tag font-bold tracking-wider uppercase">
-                                    ✦ Featured Project
+                                    New
                                 </span>
                                 {category && (
                                     <span className="px-3 py-1 rounded-full bg-[#F5F1E8] text-[#070D20]/80 text-xs font-mono-tag font-semibold">
@@ -61,7 +62,7 @@ export default function ProjectCard({ project, isFeatured = false }) {
                             )}
 
                             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#070D20] text-white text-xs font-semibold group-hover:bg-[#FFE34F] group-hover:text-[#070D20] transition-colors">
-                                View Case Study <FaArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
+                                View Details <FaArrowRight size={11} className="group-hover:translate-x-0.5 transition-transform" />
                             </span>
                         </div>
                     </div>
@@ -87,6 +88,7 @@ export default function ProjectCard({ project, isFeatured = false }) {
 
     return (
         <Link
+            id={`project-${slug}`}
             to={`/projects/${slug}`}
             className="group flex flex-col h-full rounded-2xl bg-white border border-[#E8E2D5] p-5 shadow-sm hover:shadow-lg transition-all duration-300 focus-visible:outline-none"
         >

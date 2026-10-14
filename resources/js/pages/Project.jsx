@@ -30,12 +30,6 @@ function Projects() {
             style={{ fontFamily: "'Poppins', sans-serif" }}
         >
             <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-16 pb-24">
-                <button
-                    onClick={() => navigate('/')}
-                    className="inline-flex items-center gap-2 text-xs font-mono-tag uppercase tracking-wider font-bold text-[#60687E] hover:text-[#070D20] transition-colors"
-                >
-                    <FaArrowLeft size={11} /> Back to Home
-                </button>
 
                 {/* Editorial Header */}
                 <motion.header
@@ -45,11 +39,8 @@ function Projects() {
                     className="mt-8 mb-12"
                 >
                     <div className="flex flex-wrap items-center gap-2 mb-2">
-                        <span className="font-mono-tag text-xs uppercase tracking-widest font-bold text-[#070D20]/70 bg-[#FFE34F]/80 px-2.5 py-0.5 rounded">
-                            Curated Works
-                        </span>
                         <span className="text-xs font-mono-tag text-[#60687E]">
-                            2023 — 2026
+                            Here's some of my
                         </span>
                     </div>
 
@@ -60,10 +51,8 @@ function Projects() {
                         Selected <span className="italic font-normal">Projects</span>
                     </h1>
 
-                    <p className="mt-4 max-w-2xl text-[#60687E] font-light text-base leading-relaxed">
-                        Kumpulan proyek edukasi dan kolaborasi yang saya kerjakan, berfokus pada data analysis,
-                        sistem informasi, dan front-end development dengan sentuhan desain fungsional.
-                    </p>
+                    {/* <p className="mt-4 max-w-2xl text-[#60687E] font-light text-base leading-relaxed">
+                        A selection of my work across data analytics, software development, and information systems.                    </p> */}
 
                     {/* Filter Bar with Editorial styling */}
                     {categories.length > 2 && (
@@ -75,8 +64,8 @@ function Projects() {
                                         key={c}
                                         onClick={() => setFilter(c)}
                                         className={`px-4 py-1.5 rounded-full text-xs font-mono-tag tracking-wider font-semibold transition-all duration-200 ${on
-                                                ? 'bg-[#070D20] text-[#FFE34F] shadow-sm'
-                                                : 'bg-white border border-[#E8E2D5] text-[#141B2D]/70 hover:border-[#070D20]/40'
+                                            ? 'bg-[#070D20] text-[#FFE34F] shadow-sm'
+                                            : 'bg-white border border-[#E8E2D5] text-[#141B2D]/70 hover:border-[#070D20]/40'
                                             }`}
                                     >
                                         {c}

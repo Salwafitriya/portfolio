@@ -9,7 +9,6 @@ import {
 const CONFIG = {
   name: 'Salwa Fitriya',
   email: 'salwafitriyatunnisa@gmail.com',
-  cvUrl: '/cv.pdf',
   socials: [
     { label: 'LinkedIn', handle: 'linkedin.com/in/salwafitriyatunnisa', href: 'https://www.linkedin.com/in/salwafitriyatunnisa/', icon: FaLinkedinIn },
     { label: 'GitHub', handle: 'github.com/Salwafitriya', href: 'https://github.com/Salwafitriya/', icon: FaGithub },
@@ -55,11 +54,6 @@ export default function Contact() {
       <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-24 pb-12">
         {/* ── Heading ── */}
         <motion.div {...fade} transition={{ duration: 0.5 }}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-xs font-mono-tag tracking-wider uppercase font-medium text-white/85 mb-4">
-            <span className="w-2 h-2 rounded-full bg-[#FFE34F] animate-pulse"></span>
-            Get in touch
-          </div>
-
           <h2
             className="mt-2 font-editorial font-bold tracking-tight max-w-3xl leading-[1.05]"
             style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
@@ -70,7 +64,7 @@ export default function Contact() {
             </span>
           </h2>
           <p className="mt-6 max-w-xl text-base sm:text-lg font-light text-white/75 leading-relaxed">
-            Terbuka untuk peluang karir profesional, kolaborasi proyek, maupun diskusi seputar SAP S/4HANA Materials Management, enterprise systems, data analysis, dan software development.
+            Open to professional opportunities, project collaborations, and conversations around enterprise systems, data analytics, and software development.
           </p>
 
           {/* CTA */}

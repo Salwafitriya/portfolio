@@ -88,7 +88,7 @@ function ProjectDetail() {
                 {/* Back button on top */}
                 <div className="absolute top-6 left-6 z-20">
                     <button
-                        onClick={() => navigate(`/#projects`)}
+                        onClick={() => navigate(`/#project-${slug}`)}
                         className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-[#E8E2D5] text-xs font-mono-tag font-bold uppercase tracking-wider text-[#141B2D]/80 hover:text-[#070D20] hover:bg-white shadow-sm transition-all"
                     >
                         <FaArrowLeft className="text-xs" />
@@ -177,8 +177,9 @@ function ProjectDetail() {
                             Documentation
                         </h2>
 
+                        {/* Gambar 1 & 2: full width */}
                         <div className="flex flex-col gap-8">
-                            {documentation.map((src, i) => (
+                            {documentation.slice(0, 2).map((src, i) => (
                                 <motion.button
                                     key={src}
                                     type="button"
@@ -200,12 +201,39 @@ function ProjectDetail() {
                                 </motion.button>
                             ))}
                         </div>
+
+                        {/* Gambar ke-3 dst: 2 kolom, ukuran lebih kecil (cocok untuk mockup HP) */}
+                        {documentation.length > 2 && (
+                            <div className="grid grid-cols-2 sm:grid-cols-2 gap-4 mt-8">
+                                {documentation.slice(2).map((src, i) => (
+                                    <motion.button
+                                        key={src}
+                                        type="button"
+                                        onClick={() => setPreview(src)}
+                                        initial={{ opacity: 0, y: 24 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: '-60px' }}
+                                        transition={{ duration: 0.45, delay: (i % 2) * 0.08 }}
+                                        className="group block w-full overflow-hidden rounded-xl bg-slate-100 shadow-sm ring-1 ring-slate-200 cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4"
+                                        style={{ outlineColor: accent }}
+                                        aria-label={`Perbesar foto dokumentasi ${i + 3}`}
+                                    >
+                                        <img
+                                            src={src}
+                                            alt={`${title} documentation ${i + 3}`}
+                                            loading="lazy"
+                                            className="w-full aspect-[422/900] object-contain block transition-transform duration-500 group-hover:scale-[1.03]"
+                                        />
+                                    </motion.button>
+                                ))}
+                            </div>
+                        )}
                     </section>
                 )}
 
                 <div className="mt-16 pt-8 border-t border-slate-200">
                     <button
-                        onClick={() => navigate(`/#project-${slug || project?.id || 'projects'}`)}
+                        onClick={() => navigate(`/#project-${slug}`)}
                         className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900 transition-colors"
                     >
                         <FaArrowLeft />

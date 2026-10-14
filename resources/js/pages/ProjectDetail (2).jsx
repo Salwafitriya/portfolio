@@ -74,14 +74,6 @@ function ProjectDetail() {
                 <Sparkle className="absolute bottom-10 left-[48%]" size={20} color="#f5b400" />
 
                 <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-8 pb-16">
-                    <button
-                        onClick={() => navigate('/')}
-                        className="pl-mono inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full bg-white/80 pl-hard-hover"
-                        style={{ border: '2px dashed #111' }}
-                    >
-                        <FaArrowLeft size={11} /> Back to Portfolio
-                    </button>
-
                     <div className={`mt-10 grid gap-12 items-center ${heroImage ? 'md:grid-cols-[1.1fr_0.9fr]' : ''}`}>
                         <motion.div
                             initial={{ opacity: 0, y: 24 }}

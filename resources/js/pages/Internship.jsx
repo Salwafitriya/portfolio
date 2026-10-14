@@ -1,10 +1,61 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaArrowLeft, FaBuilding, FaCalendarAlt, FaMapMarkerAlt, FaCheckCircle, FaBriefcase } from 'react-icons/fa';
+import {
+    FaArrowLeft,
+    FaCalendarDays,
+    FaLocationDot,
+    FaCircleUser,
+    FaArrowUpRightFromSquare,
+    FaImage,
+    FaImages,
+} from 'react-icons/fa6';
 import internships from '../data/internshipsData';
 import PhotoLightbox from '../components/PhotoLightbox';
 import { PlayfulStyles, Cube, Sparkle } from '../components/Playful';
+
+// ── Foto strip: tampilkan max 3, tile ke-4 = "+N" overlay ──
+const STRIP_MAX = 3;
+
+function PhotoStrip({ photos, onOpen }) {
+    const shown = photos.slice(0, STRIP_MAX);
+    const extra = photos.length - STRIP_MAX;
+
+    return (
+        <div className="grid grid-cols-4 gap-2 sm:gap-3">
+            {shown.map((photo, i) => (
+                <button
+                    key={i}
+                    type="button"
+                    onClick={() => onOpen(photo.url)}
+                    className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-[#F5F1E8] cursor-zoom-in focus-visible:outline-none"
+                >
+                    <img
+                        src={photo.url}
+                        alt=""
+                        loading="lazy"
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                </button>
+            ))}
+
+            {/* Tile "+N" */}
+            {extra > 0 ? (
+                <button
+                    type="button"
+                    onClick={() => onOpen(photos[STRIP_MAX]?.url)}
+                    className="relative aspect-[4/3] overflow-hidden rounded-xl bg-[#070D20] flex flex-col items-center justify-center gap-1 cursor-pointer hover:bg-[#141B2D] transition-colors focus-visible:outline-none"
+                >
+                    <FaImages size={20} className="text-[#FFE34F]" />
+                    <span className="font-editorial font-bold text-white text-lg leading-none">+{extra}</span>
+                </button>
+            ) : (
+                // Slot kosong kalau foto < 4
+                photos.length < 4 && <div />
+            )}
+        </div>
+    );
+}
 
 function Internship() {
     const navigate = useNavigate();
@@ -22,66 +73,68 @@ function Internship() {
             ? internships
             : internships.filter((i) => i.company === selectedCompany);
 
-    // Flatten photos for lightbox
-    const allPhotos = filteredInternships.flatMap((item) =>
-        item.photos.map((p) => ({
+    // Flatten photos untuk lightbox (per intern)
+    const buildPhotos = (intern) =>
+        intern.photos.map((p) => ({
             image: p.url,
-            title: item.company,
-            caption: `${item.role} · ${p.caption}`,
-        }))
-    );
+            title: intern.company,
+            caption: intern.role,
+        }));
 
-    const openLightbox = (photoUrl) => {
-        const idx = allPhotos.findIndex((p) => p.image === photoUrl);
-        if (idx !== -1) setActivePhoto(idx);
+    const openLightbox = (intern, photoUrl) => {
+        const photos = buildPhotos(intern);
+        const idx = photos.findIndex((p) => p.image === photoUrl);
+        // simpan offset global
+        let offset = 0;
+        for (const item of filteredInternships) {
+            if (item.id === intern.id) break;
+            offset += item.photos.length;
+        }
+        setActivePhoto(offset + (idx >= 0 ? idx : 0));
     };
+
+    const allPhotos = filteredInternships.flatMap((item) => buildPhotos(item));
 
     return (
         <div
             id="internship"
-            className="min-h-screen pl-grid text-[#141B2D] overflow-x-hidden"
+            className="min-h-screen bg-[#F5F1E8] text-[#141B2D] overflow-x-hidden"
             style={{ fontFamily: "'Poppins', sans-serif" }}
         >
             <PlayfulStyles />
 
-            {/* ── Header ── */}
-            <header className="pl-hero relative overflow-hidden border-b border-[#E8E2D5]">
-                <Cube className="absolute top-10 right-[8%] opacity-60 pl-float" size={80} />
-                <Sparkle className="absolute top-16 left-[45%] pl-float" size={24} color="#FFE34F" />
+            {/* ── Page Header ── */}
+            <header className="relative overflow-hidden border-b border-[#E8E2D5] bg-[#F5F1E8]">
+                <Cube className="absolute top-10 right-[8%] opacity-50 pl-float" size={72} />
+                <Sparkle className="absolute top-16 left-[45%] pl-float" size={22} color="#FFE34F" />
 
                 <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-12 pb-14">
-                    <button
+                    {/* <button
                         onClick={() => navigate('/')}
-                        className="pl-mono inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-white text-[#141B2D]/80 border border-[#E8E2D5] hover:border-[#070D20] transition-colors"
+                        className="inline-flex items-center gap-2 text-xs font-mono-tag font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-white text-[#141B2D]/80 border border-[#E8E2D5] hover:border-[#070D20] transition-colors"
                     >
                         <FaArrowLeft size={11} /> Back to Portfolio
-                    </button>
+                    </button> */}
 
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.55 }}
-                        className="mt-8 relative"
+                        className="mt-8"
                     >
-                        <div className="inline-flex items-center gap-2">
+                        <div className="inline-flex items-center gap-2 mb-3">
                             <span className="font-mono-tag text-xs uppercase tracking-widest font-bold text-[#070D20]/75 bg-[#FFE34F] px-2.5 py-0.5 rounded">
-                                Work &amp; Industry ✦
+                                Work &amp; Industry
                             </span>
-                            <span className="text-xs font-mono-tag text-[#60687E]">
-                                Internship Journey
-                            </span>
+                            <span className="text-xs font-mono-tag text-[#60687E]">Work Experiences</span>
                         </div>
 
                         <h1
-                            className="mt-3 font-editorial text-[#070D20] font-bold tracking-tight leading-[1.05]"
+                            className="font-editorial text-[#070D20] font-bold tracking-tight leading-[1.05]"
                             style={{ fontSize: 'clamp(2.4rem, 6vw, 4.5rem)' }}
                         >
-                            Professional <span className="italic font-normal">Internships</span>
+                            Professional <span className="italic font-normal">Experiences</span>
                         </h1>
-                        <p className="mt-3 max-w-2xl text-[#60687E] font-light text-base leading-relaxed">
-                            Pengalaman kerja industri, kontribusi nyata dalam pengembangan sistem, analisis proses bisnis,
-                            dan kolaborasi lintas tim di berbagai perusahaan.
-                        </p>
                     </motion.div>
 
                     {/* Filter Bar */}
@@ -92,11 +145,10 @@ function Internship() {
                                 <button
                                     key={c}
                                     onClick={() => setSelectedCompany(c)}
-                                    className={`pl-mono text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full transition-all duration-200 ${
-                                        on
-                                            ? 'bg-[#070D20] text-[#FFE34F] shadow-sm'
-                                            : 'bg-white border border-[#E8E2D5] text-[#141B2D]/75 hover:border-[#070D20]/40'
-                                    }`}
+                                    className={`font-mono-tag text-xs font-semibold uppercase tracking-wider px-4 py-1.5 rounded-full transition-all duration-200 ${on
+                                        ? 'bg-[#070D20] text-[#FFE34F] shadow-sm'
+                                        : 'bg-white border border-[#E8E2D5] text-[#141B2D]/75 hover:border-[#070D20]/40'
+                                        }`}
                                 >
                                     {c}
                                 </button>
@@ -106,110 +158,170 @@ function Internship() {
                 </div>
             </header>
 
-            {/* ── Main Content: Internship Stories & Gallery ── */}
-            <main className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] py-14 pb-28">
-                <div className="space-y-16">
+
+            {/* ── Cards ── */}
+            <main className="max-w-6xl mx-auto px-2 sm:px-10 lg:px-[94px] pb-28">
+                <div className="space-y-4">
                     {filteredInternships.map((intern, idx) => (
                         <motion.article
                             key={intern.id}
-                            initial={{ opacity: 0, y: 30 }}
+                            initial={{ opacity: 0, y: 28 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-60px' }}
-                            transition={{ duration: 0.5, delay: idx * 0.08 }}
-                            className="rounded-3xl bg-white border border-[#E8E2D5] p-6 sm:p-9 shadow-sm hover:shadow-md transition-shadow"
+                            transition={{ duration: 0.5, delay: idx * 0.07 }}
+                            className="rounded-2xl bg-white border border-[#E8E2D5] overflow-hidden shadow-sm hover:shadow-md transition-shadow"
                         >
-                            {/* Company & Role Overview */}
-                            <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-6 pb-6 border-b border-[#E8E2D5]">
+                            {/* ── 1. Header ── */}
+                            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 p-6 sm:p-8 pb-5 sm:pb-6">
                                 <div>
-                                    <div className="flex flex-wrap items-center gap-2 mb-2.5">
-                                        <span className="font-mono-tag text-xs font-bold uppercase tracking-wider px-2.5 py-0.5 rounded bg-[#070D20] text-[#FFE34F]">
-                                            {intern.badge}
-                                        </span>
-                                        {intern.clientProject && (
-                                            <span className="font-mono-tag text-xs font-semibold px-2.5 py-0.5 rounded bg-[#FFE34F] text-[#070D20]">
-                                                {intern.clientProject}
-                                            </span>
-                                        )}
-                                        <span className="font-mono-tag text-xs text-[#60687E] bg-[#F5F1E8] px-2.5 py-0.5 rounded">
-                                            {intern.type}
-                                        </span>
-                                    </div>
-                                    <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-[#070D20]">
+                                    <h2 className="font-editorial text-2xl sm:text-[1.75rem] font-bold text-[#070D20] leading-tight">
                                         {intern.company}
                                     </h2>
-                                    <p className="mt-1 text-base sm:text-lg font-medium text-[#141B2D]/90">
-                                        {intern.role}
+                                    <p className="mt-0.5 text-sm font-medium text-[#4f67e8]">{intern.role}</p>
+                                    <p className="mt-1 text-xs font-mono-tag text-[#60687E] flex items-center gap-2 flex-wrap">
+                                        <span className="inline-flex items-center gap-1">
+                                            <FaCalendarDays size={10} className="opacity-60" />
+                                            {intern.period}
+                                        </span>
+                                        <span className="opacity-40">·</span>
+                                        <span className="inline-flex items-center gap-1">
+                                            < FaLocationDot size={10} className="opacity-60" />
+                                            {intern.location}
+                                        </span>
                                     </p>
                                 </div>
-
-                                <div className="flex flex-wrap lg:flex-col items-start lg:items-end gap-3 text-xs sm:text-sm font-mono-tag text-[#60687E]">
-                                    <span className="inline-flex items-center gap-1.5">
-                                        <FaCalendarAlt className="text-[#070D20]/60" /> {intern.period}
+                                <div className="flex flex-wrap gap-1.5 sm:flex-col sm:items-end">
+                                    <span className="font-mono-tag text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#070D20] text-[#FFE34F] whitespace-nowrap">
+                                        {intern.badge}
                                     </span>
-                                    <span className="inline-flex items-center gap-1.5">
-                                        <FaMapMarkerAlt className="text-[#070D20]/60" /> {intern.location}
-                                    </span>
+                                    {intern.clientProject && (
+                                        <span className="font-mono-tag text-[11px] font-semibold px-3 py-1 rounded-full bg-[#FFE34F] text-[#070D20] whitespace-nowrap">
+                                            {intern.clientProject}
+                                        </span>
+                                    )}
                                 </div>
                             </div>
 
-                            {/* Description & Key Highlights */}
-                            <div className="py-6 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                                <div className="lg:col-span-6">
-                                    <h3 className="font-editorial text-lg font-bold text-[#070D20] mb-3 flex items-center gap-2">
-                                        <FaBriefcase className="text-[#FFE34F]" size={15} /> Overview
-                                    </h3>
-                                    <p className="text-sm sm:text-base leading-relaxed text-[#141B2D]/80 font-light">
-                                        {intern.description}
-                                    </p>
-                                </div>
+                            {/* ── 2. Stats boxes ── */}
 
-                                <div className="lg:col-span-6 bg-[#F5F1E8]/60 rounded-2xl p-5 border border-[#E8E2D5]">
-                                    <h3 className="font-mono-tag text-xs font-bold uppercase tracking-wider text-[#070D20] mb-3">
-                                        Key Contributions &amp; Experience
-                                    </h3>
-                                    <ul className="space-y-2.5">
-                                        {intern.highlights.map((h, i) => (
-                                            <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#141B2D]/85">
-                                                <FaCheckCircle className="text-[#070D20] shrink-0 mt-0.5" size={13} />
-                                                <span>{h}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </div>
-
-                            {/* Internship Moments / Photo Gallery */}
-                            <div className="pt-6 border-t border-[#E8E2D5]">
-                                <h3 className="font-mono-tag text-xs font-bold uppercase tracking-widest text-[#60687E] mb-4">
-                                    Documented Moments ({intern.photos.length} photos)
-                                </h3>
-
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
-                                    {intern.photos.map((photo, pIdx) => (
-                                        <motion.button
-                                            key={pIdx}
-                                            type="button"
-                                            onClick={() => openLightbox(photo.url)}
-                                            whileHover={{ scale: 1.02 }}
-                                            transition={{ duration: 0.2 }}
-                                            className="group relative block aspect-[4/3] overflow-hidden rounded-xl bg-[#F5F1E8] border border-[#E8E2D5] cursor-zoom-in text-left shadow-sm hover:shadow-md"
-                                            aria-label={`View photo ${pIdx + 1} from ${intern.company}`}
+                            {intern.stats?.length > 0 && (
+                                <div className="mx-6 sm:mx-8 mb-6 grid grid-cols-2 gap-3">
+                                    {intern.stats.map((s, i) => (
+                                        <div
+                                            key={i}
+                                            className="rounded-xl bg-[#F5F1E8] border border-[#E8E2D5] px-4 py-3"
                                         >
-                                            <img
-                                                src={photo.url}
-                                                alt={photo.caption}
-                                                loading="lazy"
-                                                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-2.5 flex items-end">
-                                                <p className="text-[10px] text-white/90 font-medium leading-tight line-clamp-2">
-                                                    {photo.caption}
-                                                </p>
-                                            </div>
-                                        </motion.button>
+                                            <p className="font-editorial font-bold text-[#070D20] text-xl sm:text-2xl leading-none">
+                                                {s.value}
+                                            </p>
+                                            <p className="mt-1.5 text-[9px] sm:text-[10px] font-mono-tag text-[#60687E] uppercase tracking-wide">
+                                                {s.label}
+                                            </p>
+                                        </div>
                                     ))}
                                 </div>
+                            )}
+
+
+
+                            {/* ── 3. Key Contributions ── */}
+                            <div className="mx-6 sm:mx-8 pb-6 border-b border-[#E8E2D5]">
+                                <h3 className="font-mono-tag text-[10px] font-bold uppercase tracking-widest text-[#070D20]/60 mb-3">
+                                    Key Contributions
+                                </h3>
+                                <ol className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
+                                    {intern.highlights.map((h, i) => (
+                                        <li key={i} className="flex items-start gap-2 text-sm text-[#141B2D]/80 leading-relaxed">
+                                            <span className="font-mono-tag text-[10px] text-[#60687E] mt-0.5 shrink-0 w-4">
+                                                {i + 1}.
+                                            </span>
+                                            <span>{h}</span>
+                                        </li>
+                                    ))}
+                                </ol>
                             </div>
+
+                            {/* ── 4. Skills & Technologies ── */}
+                            <div className="mx-6 sm:mx-8 py-6 border-b border-[#E8E2D5] grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                {intern.specializedSkills?.length > 0 && (
+                                    <div>
+                                        <h3 className="font-mono-tag text-[10px] font-bold uppercase tracking-widest text-[#070D20]/60 mb-3">
+                                            Specialized Skills
+                                        </h3>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {intern.specializedSkills.map((s) => (
+                                                <span
+                                                    key={s}
+                                                    className="px-2.5 py-1 rounded-md bg-[#F5F1E8] border border-[#E8E2D5] text-[11px] font-mono-tag text-[#141B2D]/80"
+                                                >
+                                                    {s}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {intern.technologies?.length > 0 && (
+                                    <div>
+                                        <h3 className="font-mono-tag text-[10px] font-bold uppercase tracking-widest text-[#070D20]/60 mb-3">
+                                            Technologies
+                                        </h3>
+                                        <div className="flex flex-wrap gap-1.5">
+                                            {intern.technologies.map((t) => (
+                                                <span
+                                                    key={t}
+                                                    className="px-2.5 py-1 rounded-md bg-[#070D20]/5 border border-[#070D20]/10 text-[11px] font-mono-tag text-[#141B2D]/80"
+                                                >
+                                                    {t}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+
+                            {/* ── 5. Photo Strip ── */}
+                            <div className="mx-6 sm:mx-8 py-6 border-b border-[#E8E2D5]">
+                                <h3 className="font-mono-tag text-[10px] font-bold uppercase tracking-widest text-[#60687E] mb-4 flex items-center gap-1.5">
+                                    <FaImages size={11} />
+                                    Internship Moments · {intern.photos.length} photo{intern.photos.length !== 1 ? 's' : ''}
+                                </h3>
+                                <PhotoStrip
+                                    photos={intern.photos}
+                                    onOpen={(url) => openLightbox(intern, url)}
+                                />
+                            </div>
+
+                            {/* ── 6. Referral Footer ── */}
+                            {/* <div className="mx-6 sm:mx-8 py-5 flex items-center justify-between gap-4">
+                                <div className="flex items-center gap-3">
+                                    <div className="w-9 h-9 rounded-full bg-[#F5F1E8] border border-[#E8E2D5] flex items-center justify-center shrink-0">
+                                        <FaCircleUser size={18} className="text-[#60687E]" />
+                                    </div>
+                                    <div>
+                                        <p className="text-sm font-semibold text-[#070D20] leading-tight">
+                                            {intern.referral ? intern.referral.name : 'Professional Reference'}
+                                        </p>
+                                        <p className="text-xs font-mono-tag text-[#60687E] mt-0.5">
+                                            {intern.referral
+                                                ? intern.referral.title
+                                                : 'Available upon request'}
+                                        </p>
+                                    </div>
+                                </div>
+                                {intern.referral?.contact && (
+                                    <a
+                                        href={`mailto:${intern.referral.contact}`}
+                                        className="text-[#60687E] hover:text-[#070D20] transition-colors"
+                                        aria-label="Contact referral"
+                                    >
+                                        <FaArrowUpRightFromSquare size={13} />
+                                    </a>
+                                )}
+                                {!intern.referral && (
+                                    <FaArrowUpRightFromSquare size={13} className="text-[#D0CAC0]" />
+                                )}
+                            </div> */}
                         </motion.article>
                     ))}
                 </div>

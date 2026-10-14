@@ -39,29 +39,13 @@ function Certification() {
                 <Sparkle className="absolute top-16 right-[24%] pl-float" size={24} color="#FFE34F" />
 
                 <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-12 pb-14 text-center">
-                    <div className="flex justify-start">
-                        <button
-                            onClick={() => navigate('/')}
-                            className="pl-mono inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-white text-[#141B2D]/80 border border-[#E8E2D5] hover:border-[#070D20] transition-colors"
-                        >
-                            <FaArrowLeft size={11} /> Back to Portfolio
-                        </button>
-                    </div>
-
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.55 }}
                         className="mt-8 relative"
                     >
-                        <div className="inline-flex items-center gap-2">
-                            <span className="font-mono-tag text-xs uppercase tracking-widest font-bold text-[#070D20]/75 bg-[#FFE34F] px-2.5 py-0.5 rounded">
-                                Wall of Proof ✦
-                            </span>
-                            <span className="text-xs font-mono-tag text-[#60687E]">
-                                {certifications.length}+ Credentials
-                            </span>
-                        </div>
+
 
                         <h1
                             className="mt-4 font-editorial text-[#070D20] font-bold tracking-tight leading-[1.05] max-w-3xl mx-auto"
@@ -69,9 +53,6 @@ function Certification() {
                         >
                             Certifi<span className="italic font-normal">cations</span>
                         </h1>
-                        <p className="mt-3 max-w-xl mx-auto text-[#60687E] font-light text-base leading-relaxed">
-                            Sertifikat dan penghargaan profesional sebagai bukti nyata dedikasi dan proses belajar yang berkelanjutan.
-                        </p>
                     </motion.div>
 
                     <div className="mt-8 flex justify-center">
@@ -81,7 +62,7 @@ function Certification() {
             </header>
 
             {/* ── Sheets ── */}
-            <main className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] py-14 pb-28">
+            <main className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pb-28">
                 {visible.length === 0 ? (
                     <p className="pl-mono text-center py-20 text-[#60687E]">Belum ada sertifikat.</p>
                 ) : (

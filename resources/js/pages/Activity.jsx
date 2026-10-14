@@ -33,12 +33,6 @@ function Activity() {
                 <Sparkle className="absolute top-20 left-[48%] pl-float" size={24} color="#FFE34F" />
 
                 <div className="relative max-w-6xl mx-auto px-6 sm:px-10 lg:px-[94px] pt-12 pb-14">
-                    <button
-                        onClick={() => navigate('/')}
-                        className="pl-mono inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider px-4 py-1.5 rounded-full bg-white text-[#141B2D]/80 border border-[#E8E2D5] hover:border-[#070D20] transition-colors"
-                    >
-                        <FaArrowLeft size={11} /> Back to Portfolio
-                    </button>
 
                     <motion.div
                         initial={{ opacity: 0, y: 24 }}
@@ -62,7 +56,7 @@ function Activity() {
                             Activities <span className="italic font-normal">&amp; Memories</span>
                         </h1>
                         <p className="mt-3 max-w-xl text-[#60687E] font-light text-base leading-relaxed">
-                            Potongan momen dari kegiatan perkuliahan, organisasi, dan kompetisi yang pernah saya ikuti.
+                            A collection of moments from university activities, student organizations, and competitions I've been part of.
                         </p>
                     </motion.div>
 

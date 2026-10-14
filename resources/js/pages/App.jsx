@@ -14,22 +14,31 @@ import Certification from './Certification';
 /* ─── Main portfolio page (all sections) ─── */
 function PortfolioPage() {
   const location = useLocation();
+  const containerRef = React.useRef(null);
 
   useEffect(() => {
     if (location.hash) {
       const id = decodeURIComponent(location.hash.replace('#', ''));
-      // Berikan timeout agar elemen DOM sudah ter-render sepenuhnya
+      // Timeout panjang agar snap layout selesai render
       setTimeout(() => {
+        const container = containerRef.current;
         const element = document.getElementById(id);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (element && container) {
+          // Hitung offset element relatif terhadap container
+          const containerRect = container.getBoundingClientRect();
+          const elementRect = element.getBoundingClientRect();
+          const offset = elementRect.top - containerRect.top + container.scrollTop;
+          container.scrollTo({ top: offset, behavior: 'smooth' });
+        } else if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
-      }, 150);
+      }, 300);
     }
   }, [location]);
 
   return (
     <div
+      ref={containerRef}
       className="bg-[#F5F1E8] font-sans antialiased text-[#141B2D] selection:bg-[#FFE34F] selection:text-[#070D20]"
       style={{
         height: '100vh',
